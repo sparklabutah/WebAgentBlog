@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Observatory</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #ffffff;
+            color: #212529;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .observatory-container {
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .observatory-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .observatory-title {
+            color: #212529;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .observatory-subtitle {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .controls-panel {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            color: #495057;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .filter-select, .search-input {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            color: #212529;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .filter-select:focus, .search-input:focus {
+            outline: none;
+            border-color: #2698ba;
+            box-shadow: 0 0 0 2px rgba(38, 152, 186, 0.2);
+        }
+
+        .search-input {
+            width: 180px;
+        }
+
+        .cosmos-view {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dataset-star {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            border: 2px solid;
+        }
+
+        .dataset-star:hover {
+            transform: scale(1.3);
+            z-index: 5;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .dataset-star.highlighted {
+            transform: scale(1.4);
+            z-index: 6;
+        }
+
+        .dataset-star.hidden {
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Category colors - using blog-friendly palette */
+        .dataset-star[data-category="Computer and OS Control"] {
+            background: #d4edda;
+            color: #155724;
+            border-color: #28a745;
+        }
+
+        .dataset-star[data-category="Web Control and Navigation"] {
+            background: #cce5ff;
+            color: #004085;
+            border-color: #2698ba;
+        }
+
+        .dataset-star[data-category="Text-only Web Environments"] {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffc107;
+        }
+
+        .dataset-star[data-category="Web QA and Classification"] {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #dc3545;
+        }
+
+        .dataset-star[data-category="Coding and Assistant Tasks"] {
+            background: #e2d5f1;
+            color: #4a235a;
+            border-color: #9b59b6;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            padding: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend h4 {
+            color: #212529;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+            color: #495057;
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        .stats-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            padding: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-overlay h4 {
+            color: #2698ba;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stat-item {
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+            color: #495057;
+        }
+
+        .stat-item span {
+            color: #2698ba;
+            font-weight: 600;
+        }
+
+        .info-panel {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            padding: 1.2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-panel.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .info-panel h3 {
+            color: #2698ba;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            padding-right: 25px;
+            font-weight: 600;
+        }
+
+        .info-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8f9fa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .info-panel .close-btn:hover {
+            background: #e9ecef;
+            color: #212529;
+        }
+
+        .info-item {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .info-label {
+            color: #2698ba;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            color: #495057;
+        }
+
+        .cite-ref {
+            color: #2698ba;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+        
+        .cite-ref:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .info-panel {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90vw;
+                max-width: 350px;
+                z-index: 1000;
+            }
+            
+            .legend {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1c1c1d;
+                color: #c4c4c4;
+            }
+            
+            .observatory-title {
+                color: #e9ecef;
+            }
+            
+            .observatory-subtitle {
+                color: #adb5bd;
+            }
+            
+            .controls-panel {
+                background: #212529;
+                border-color: #424246;
+            }
+            
+            .filter-label {
+                color: #adb5bd;
+            }
+            
+            .filter-select, .search-input {
+                background: #2c3237;
+                border-color: #424246;
+                color: #e9ecef;
+            }
+            
+            .cosmos-view {
+                background: linear-gradient(135deg, #212529 0%, #2c3237 100%);
+                border-color: #424246;
+            }
+            
+            .legend, .stats-overlay, .info-panel {
+                background: #2c3237;
+                border-color: #424246;
+            }
+            
+            .legend h4, .info-panel h3 {
+                color: #2698ba;
+            }
+            
+            .legend-item, .stat-item, .info-value {
+                color: #adb5bd;
+            }
+            
+            .info-panel .close-btn {
+                background: #1c1c1d;
+                border-color: #424246;
+                color: #adb5bd;
+            }
+            
+            .cite-ref {
+                color: #2698ba;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="observatory-container">
+        <div class="observatory-header">
+            <h2 class="observatory-title">Research Observatory</h2>
+            <p class="observatory-subtitle">Explore Computer Use datasets interactively</p>
+        </div>
+
+        <div class="controls-panel">
+            <div class="filter-group">
+                <label class="filter-label">Category:</label>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Computer and OS Control">Computer & OS Control</option>
+                    <option value="Web Control and Navigation">Web Control & Navigation</option>
+                    <option value="Text-only Web Environments">Text-only Web</option>
+                    <option value="Web QA and Classification">Web QA & Classification</option>
+                    <option value="Coding and Assistant Tasks">Coding & Assistant</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Execution:</label>
+                <select class="filter-select" id="executionFilter">
+                    <option value="">All</option>
+                    <option value="yes">Execution-based</option>
+                    <option value="no">Non-execution</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Web:</label>
+                <select class="filter-select" id="webFilter">
+                    <option value="">All</option>
+                    <option value="yes">Web-based</option>
+                    <option value="no">Non-web</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Search:</label>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search datasets...">
+            </div>
+        </div>
+
+        <div class="cosmos-view" id="cosmosView">
+            <div class="stats-overlay">
+                <h4>Observatory Stats</h4>
+                <div class="stat-item">Total Datasets: <span id="totalCount">0</span></div>
+                <div class="stat-item">Visible: <span id="visibleCount">0</span></div>
+            </div>
+
+            <div class="legend">
+                <h4>Dataset Categories</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d4edda; border-color: #28a745;"></div>
+                    <span>Computer & OS Control</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #cce5ff; border-color: #2698ba;"></div>
+                    <span>Web Control & Navigation</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff3cd; border-color: #ffc107;"></div>
+                    <span>Text-only Web</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f8d7da; border-color: #dc3545;"></div>
+                    <span>Web QA & Classification</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e2d5f1; border-color: #9b59b6;"></div>
+                    <span>Coding & Assistant</span>
+                </div>
+            </div>
+
+            <div class="info-panel" id="infoPanel">
+                <span class="close-btn" id="closePanel">×</span>
+                <h3 id="datasetName">Dataset Name</h3>
+                <div id="datasetInfo"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const datasets = [
+            { name: "OSWorld", category: "Computer and OS Control", os: "Ubuntu or Windows VM", interface: "GUI, CLI", observations: "Screenshots, accessibility tree, terminal outputs", actions: "10 mouse + 6 keyboard with pyautogui", web: "Live", tasks: "Office (32%), workflow (27%), daily (21%)", execution: "Yes, in a VM", examples: "N/A", cite: "[8]", citeKey: "xie2024osworld" },
+            { name: "AndroidWorld", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshot + UI tree representation", actions: "Gestures, typing, navigation buttons + APIs", web: "Live", tasks: "Practical, everyday activities", execution: "Yes, using ADB", examples: "N/A", cite: "[9]", citeKey: "rawles2024androidworld" },
+            { name: "OmniAct", category: "Computer and OS Control", os: "Ubuntu, Windows, macOS", interface: "GUI", observations: "Screenshots + bounding boxes", actions: "7 mouse + 3 keyboard", web: "Static (22 websites)", tasks: "Desktop application tasks", execution: "No, statically against pre-defined solution", examples: "N/A", cite: "[10]", citeKey: "kapoor2024omniact" },
+            { name: "Android in the Wild", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshots + bounding boxes", actions: "TOUCH, LIFT, REPEAT with (x,y) coordinates", web: "Static (fixed web traces)", tasks: "Everyday activities, web lookup", execution: "Action matching to ground truth traces", examples: "715k", cite: "[11]", citeKey: "rawles2024androidinthewild" },
+            { name: "Android Control", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshot + UI tree representation", actions: "9 actions (click, long_press, type_text, etc.)", web: "Static (fixed web traces)", tasks: "Everyday activities, web lookup", execution: "Action matching to ground truth traces", examples: "15,283", cite: "[12]", citeKey: "li2024effects" },
+            { name: "WindowsAgentArena", category: "Computer and OS Control", os: "Windows VM", interface: "GUI", observations: "Screen representation: screenshot, DOM tree, UI Automation tree", actions: "6 mouse + 2 keyboard + 5 custom", web: "Live, but limited browsing", tasks: "Office (28%), web browsing (19%), Windows system (16%)", execution: "Yes", examples: "154", cite: "[13]", citeKey: "bonatti2024windows" },
+            { name: "WebArena", category: "Web Control and Navigation", os: "N/A", interface: "Chat, Browser", observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree", actions: "12 actions: 6 element operations + 3 tab + 3 URL navigation", web: "Static, 4 categories + 3 utility tools", tasks: "E-commerce (23%), CMS (22.4%), GitLab (22.2%)", execution: "Yes", examples: "812", cite: "[14]", citeKey: "zhouwebarena" },
+            { name: "VisualWebArena", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree, Set-of-Marks", actions: "12 actions (click, hover, type, press, tab-relate, URL navigation)", web: "Static, three realistic web environments", tasks: "Shopping (50.9%), Classifieds (25.5%), Reddit (18.7%)", execution: "Yes", examples: "910", cite: "[15]", citeKey: "koh2024visualwebarena" },
+            { name: "Mind2Web", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "MHTML file of webpage, DOM tree and HAR file", actions: "Target Element, Operation pair (Click, Type, Select Option)", web: "Static (fixed web traces)", tasks: "Travel (27.4%), Info (20.4%), Service (18.3%), Shopping (17.5%)", execution: "No execution (just web traces)", examples: "2,350", cite: "[16]", citeKey: "deng2024mind2web" },
+            { name: "Mind2Web-Live", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Webpage's source code and screenshots, accessibility tree", actions: "9 action types with parameters", web: "Live", tasks: "Web navigation tasks", execution: "Yes", examples: "542", cite: "[16]", citeKey: "deng2024mind2web" },
+            { name: "WebCanvas", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Webpage content, accessibility tree", actions: "Browser actions with parameters", web: "Live", tasks: "Web navigation tasks", execution: "Yes", examples: "542", cite: "[17]", citeKey: "pan2024webcanvas" },
+            { name: "World of Bits", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Screen image + DOM", actions: "Cursor position with mouse actions plus keyboard actions", web: "Offline version of 7 websites", tasks: "MiniWob simple UI (100) and web form filling tasks (7)", execution: "Yes", examples: "107", cite: "[18]", citeKey: "pmlr-v70-shi17a" },
+            { name: "MiniWob++", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Screen image + DOM", actions: "Cursor position with mouse actions plus keyboard actions", web: "None", tasks: "MiniWob tasks plus complicated tasks", execution: "Yes", examples: "100+", cite: "[19]", citeKey: "liu2018reinforcement" },
+            { name: "WorkArena", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Goal + webpage content: HTML and/or AXTree", actions: "BrowserGym actions: element+mouse+keyboard", web: "Static", tasks: "Basic enterprise software tasks", execution: "Yes (validator checks the page)", examples: "19,912", cite: "[20]", citeKey: "boisvert2024workarena++" },
+            { name: "WorkArena++", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Goal + webpage content: AXTree", actions: "High-level action space from BrowserGym", web: "Static", tasks: "Complex real-world enterprise tasks", execution: "Yes (validator checks the page)", examples: "N/A", cite: "[21]", citeKey: "boisvert2024workarena++" },
+            { name: "WikiNav", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Wikipedia paragraph text", actions: "Outgoing links", web: "Wikipedia", tasks: "Navigation, question answering", execution: "Yes (copy of wikipedia graph)", examples: ">13M navigation traces", cite: "[23]", citeKey: "zaheer2022learning" },
+            { name: "WikiNav-Jericho", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Wikipedia paragraph text", actions: "Outgoing links", web: "Wikipedia", tasks: "Navigation, question answering, fact verification", execution: "Yes (copy of wikipedia graph)", examples: "Infinite navigation traces, 300k QA", cite: "[23]", citeKey: "zaheer2022learning" },
+            { name: "WebGPT", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Current page text", actions: "9 parameterized actions: search, click link, find in page, etc.", web: "Live", tasks: "Long-form question answering", execution: "Yes, using text-based environment", examples: ">1M QA pairs", cite: "[24]", citeKey: "nakano2021webgpt" },
+            { name: "VisualWebBench", category: "Web QA and Classification", os: "N/A", interface: "Visual", observations: "Screenshot + meta description/bounding box/HTML element", actions: "Token prediction", web: "Static", tasks: "7 web-scene tasks: caption, QA, OCR, grounding, action prediction", execution: "No", examples: "1.5K", cite: "[25]", citeKey: "liu2024visualwebbench" },
+            { name: "Zero-shot Entity Extraction", category: "Web QA and Classification", os: "N/A", interface: "Text", observations: "Natural language query + cached HTML page: DOM tree", actions: "Token prediction (return list of entities)", web: "Static", tasks: "Entity extraction", execution: "No", examples: "2,773", cite: "[26]", citeKey: "pasupat-liang-2014-zero" },
+            { name: "MultiUI", category: "Web QA and Classification", os: "N/A", interface: "Visual", observations: "Screenshot + tree", actions: "Token prediction (caption, QA, OCR, click prediction)", web: "Static", tasks: "Captioning/QA", execution: "No", examples: "7.3M", cite: "[27]", citeKey: "liu2024harnessing" },
+            { name: "SWE-BENCH", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Github issue text/description and complete codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches to resolve Python issues", execution: "Yes, apply patch and execute tests", examples: "2294", cite: "[28]", citeKey: "jimenezswe" },
+            { name: "SWE-bench Verified", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Github issue text/description and complete codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches to resolve Python issues", execution: "Yes, apply patch and execute tests", examples: "500", cite: "[29]", citeKey: "swebenchverifiedblog" },
+            { name: "SWE-BENCH Multimodal", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code + Visual", observations: "Github issue with visual elements + codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches for front-end and UI-related JS tasks", execution: "Yes, apply patch and execute tests", examples: "619", cite: "[30]", citeKey: "yang2024swe" },
+            { name: "ScienceAgentBench", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Natural language instruction, dataset, optional expert knowledge", actions: "Token prediction (generate Python program)", web: "No", tasks: "Info visualization (65), Data analysis (59), Model dev (23)", execution: "Yes (program executed & outputs checked)", examples: "102", cite: "[32]", citeKey: "chen2024scienceagentbench" },
+            { name: "AssistantBench", category: "Coding and Assistant Tasks", os: "N/A", interface: "Text", observations: "Natural language instructions", actions: "Web navigation and tool use", web: "Live", tasks: "Realistic time-consuming tasks", execution: "Yes", examples: "214", cite: "[33]", citeKey: "yoran2407assistantbench" },
+            { name: "TheAgentCompany", category: "Coding and Assistant Tasks", os: "N/A", interface: "Browser, Code", observations: "Instructions + web interfaces", actions: "Browser actions + code generation", web: "Static sandbox", tasks: "Professional workplace tasks", execution: "Yes", examples: "175", cite: "[94]", citeKey: "xu2024theagentcompany" }
+        ];
+
+        const cosmosView = document.getElementById('cosmosView');
+        const infoPanel = document.getElementById('infoPanel');
+        const datasetName = document.getElementById('datasetName');
+        const datasetInfo = document.getElementById('datasetInfo');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const executionFilter = document.getElementById('executionFilter');
+        const webFilter = document.getElementById('webFilter');
+        const searchInput = document.getElementById('searchInput');
+        const totalCount = document.getElementById('totalCount');
+        const visibleCount = document.getElementById('visibleCount');
+        const closePanel = document.getElementById('closePanel');
+
+        function createStars() {
+            datasets.forEach((dataset, index) => {
+                const star = document.createElement('div');
+                star.className = 'dataset-star';
+                star.dataset.category = dataset.category;
+                star.dataset.index = index;
+                
+                const angle = (index / datasets.length) * Math.PI * 2;
+                const radius = 150 + Math.random() * 100;
+                const centerX = cosmosView.offsetWidth / 2;
+                const centerY = cosmosView.offsetHeight / 2;
+                
+                const x = centerX + Math.cos(angle) * radius + (Math.random() - 0.5) * 80;
+                const y = centerY + Math.sin(angle) * radius + (Math.random() - 0.5) * 80;
+                
+                star.style.left = Math.max(30, Math.min(cosmosView.offsetWidth - 50, x)) + 'px';
+                star.style.top = Math.max(60, Math.min(cosmosView.offsetHeight - 50, y)) + 'px';
+                
+                const abbrev = dataset.name.substring(0, 2).toUpperCase();
+                star.innerHTML = abbrev;
+                star.title = dataset.name;
+                
+                star.addEventListener('click', () => showDatasetInfo(dataset, star));
+                
+                cosmosView.appendChild(star);
+            });
+            
+            updateStats();
+        }
+
+        function showDatasetInfo(dataset, star) {
+            document.querySelectorAll('.dataset-star').forEach(s => s.classList.remove('highlighted'));
+            star.classList.add('highlighted');
+            
+            const citeLink = dataset.cite ? 
+                `<div class="info-item"><span class="info-label">Citation:</span><span class="info-value"><a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">${dataset.cite}</a></span></div>` : '';
+            
+            datasetName.textContent = dataset.name;
+            datasetInfo.innerHTML = `
+                <div class="info-item"><span class="info-label">Category:</span><span class="info-value">${dataset.category}</span></div>
+                <div class="info-item"><span class="info-label">OS:</span><span class="info-value">${dataset.os}</span></div>
+                <div class="info-item"><span class="info-label">Interface:</span><span class="info-value">${dataset.interface}</span></div>
+                <div class="info-item"><span class="info-label">Observations:</span><span class="info-value">${dataset.observations}</span></div>
+                <div class="info-item"><span class="info-label">Actions:</span><span class="info-value">${dataset.actions}</span></div>
+                <div class="info-item"><span class="info-label">Web:</span><span class="info-value">${dataset.web}</span></div>
+                <div class="info-item"><span class="info-label">Tasks:</span><span class="info-value">${dataset.tasks}</span></div>
+                <div class="info-item"><span class="info-label">Execution:</span><span class="info-value">${dataset.execution}</span></div>
+                <div class="info-item"><span class="info-label">Examples:</span><span class="info-value">${dataset.examples}</span></div>
+                ${citeLink}
+            `;
+            infoPanel.classList.add('visible');
+        }
+
+        function filterDatasets() {
+            const category = categoryFilter.value;
+            const execution = executionFilter.value;
+            const web = webFilter.value;
+            const search = searchInput.value.toLowerCase();
+            
+            let visible = 0;
+            
+            document.querySelectorAll('.dataset-star').forEach(star => {
+                const index = parseInt(star.dataset.index);
+                const dataset = datasets[index];
+                
+                let show = true;
+                
+                if (category && dataset.category !== category) show = false;
+                if (execution === 'yes' && !dataset.execution.toLowerCase().includes('yes')) show = false;
+                if (execution === 'no' && dataset.execution.toLowerCase().includes('yes')) show = false;
+                if (web === 'yes' && (dataset.web === 'No' || dataset.web === 'None')) show = false;
+                if (web === 'no' && dataset.web !== 'No' && dataset.web !== 'None') show = false;
+                if (search && !dataset.name.toLowerCase().includes(search) && !dataset.category.toLowerCase().includes(search)) show = false;
+                
+                star.classList.toggle('hidden', !show);
+                if (show) visible++;
+            });
+            
+            visibleCount.textContent = visible;
+        }
+
+        function updateStats() {
+            totalCount.textContent = datasets.length;
+            visibleCount.textContent = datasets.length;
+        }
+
+        categoryFilter.addEventListener('change', filterDatasets);
+        executionFilter.addEventListener('change', filterDatasets);
+        webFilter.addEventListener('change', filterDatasets);
+        searchInput.addEventListener('input', filterDatasets);
+        
+        closePanel.addEventListener('click', () => {
+            infoPanel.classList.remove('visible');
+            document.querySelectorAll('.dataset-star').forEach(s => s.classList.remove('highlighted'));
+        });
+
+        createStars();
+    </script>
+</body>
+</html>

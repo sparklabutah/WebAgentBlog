@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-LLM Evolution Timeline</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #ffffff;
+            color: #212529;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .time-machine-container {
+            padding: 1.5rem;
+        }
+
+        .time-machine-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-machine-title {
+            color: #212529;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .time-machine-subtitle {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .timeline-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-btn {
+            background: #ffffff;
+            border: 1px solid #2698ba;
+            color: #2698ba;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .timeline-btn:hover:not(:disabled) {
+            background: #2698ba;
+            color: #ffffff;
+        }
+
+        .timeline-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .timeline-year-display {
+            background: #f8f9fa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #212529;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .timeline-visualization {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .era-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #e9ecef;
+            border: 2px solid #dee2e6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .era-dot:hover {
+            transform: scale(1.2);
+            border-color: #2698ba;
+        }
+
+        .era-dot.active {
+            background: #2698ba;
+            border-color: #2698ba;
+            transform: scale(1.2);
+        }
+
+        .era-dot.passed {
+            background: #b8e0ec;
+            border-color: #2698ba;
+        }
+
+        .timeline-era {
+            background: #f8f9fa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .era-title {
+            color: #212529;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .era-badge {
+            background: #e3f2fd;
+            color: #2698ba;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .era-description {
+            color: #495057;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .era-papers {
+            margin-bottom: 1.2rem;
+        }
+
+        .era-papers h4 {
+            color: #2698ba;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .era-paper {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .era-paper:last-child {
+            border-bottom: none;
+        }
+
+        .paper-year {
+            color: #2698ba;
+            font-weight: 600;
+            min-width: 50px;
+            font-size: 0.9rem;
+        }
+
+        .paper-title {
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .era-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #e3f2fd;
+            color: #2698ba;
+            padding: 0.35rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .cite-ref {
+            color: #2698ba;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+        
+        .cite-ref:hover {
+            text-decoration: underline;
+        }
+
+        .autoplay-btn {
+            background: #f8f9fa;
+            border-color: #6c757d;
+            color: #6c757d;
+        }
+
+        .autoplay-btn:hover:not(:disabled) {
+            background: #6c757d;
+            color: #ffffff;
+            border-color: #6c757d;
+        }
+
+        .autoplay-btn.playing {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-controls {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .timeline-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .era-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .era-paper {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .paper-year {
+                min-width: auto;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1c1c1d;
+                color: #c4c4c4;
+            }
+            
+            .time-machine-title {
+                color: #e9ecef;
+            }
+            
+            .time-machine-subtitle {
+                color: #adb5bd;
+            }
+            
+            .timeline-btn {
+                background: #2c3237;
+                border-color: #2698ba;
+            }
+            
+            .timeline-btn:hover:not(:disabled) {
+                background: #2698ba;
+            }
+            
+            .timeline-year-display {
+                background: #2c3237;
+                border-color: #424246;
+                color: #e9ecef;
+            }
+            
+            .era-dot {
+                background: #424246;
+                border-color: #6c757d;
+            }
+            
+            .era-dot.passed {
+                background: #1e4a5a;
+            }
+            
+            .timeline-era {
+                background: #212529;
+                border-color: #424246;
+            }
+            
+            .era-title {
+                color: #e9ecef;
+            }
+            
+            .era-badge {
+                background: #1e4a5a;
+            }
+            
+            .era-description, .paper-title {
+                color: #adb5bd;
+            }
+            
+            .era-paper {
+                border-bottom-color: #424246;
+            }
+            
+            .tech-tag {
+                background: #1e4a5a;
+            }
+            
+            .autoplay-btn {
+                background: #2c3237;
+                border-color: #6c757d;
+                color: #adb5bd;
+            }
+            
+            .cite-ref {
+                color: #2698ba;
+                font-weight: 600;
+                cursor: pointer;
+                text-decoration: none;
+                font-size: 0.85em;
+            }
+            
+            .cite-ref:hover {
+                text-decoration: underline;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="time-machine-container">
+        <div class="time-machine-header">
+            <h2 class="time-machine-title">Pre-LLM Evolution Timeline</h2>
+            <p class="time-machine-subtitle">Journey through the history of computer use research</p>
+        </div>
+
+        <div class="timeline-controls">
+            <button class="timeline-btn" id="prevBtn">← Previous Era</button>
+            <div class="timeline-year-display" id="yearDisplay">2000s</div>
+            <button class="timeline-btn" id="nextBtn">Next Era →</button>
+            <button class="timeline-btn autoplay-btn" id="autoplayBtn">▶ Auto Play</button>
+        </div>
+
+        <div class="timeline-visualization" id="timelineViz"></div>
+
+        <div class="timeline-era" id="eraContent"></div>
+    </div>
+
+    <script>
+        const eras = [
+            {
+                years: "2000s",
+                title: "Classical Planning Era",
+                description: "The earliest works in computer use research employed classical planning techniques and cognitive architectures. Even from this early stage, the problem was framed under an agent-environment paradigm. Researchers focused on symbolic AI approaches where agents could reason about actions and their effects in computer environments.",
+                papers: [
+                    { year: "2000s", title: "STRIPS-based planning for web navigation" },
+                    { year: "2000s", title: "Cognitive architecture approaches to UI automation" },
+                    { year: "2000s", title: "Symbolic AI for desktop task automation" }
+                ],
+                technologies: ["STRIPS", "Classical Planning", "Cognitive Architectures", "Symbolic AI"]
+            },
+            {
+                years: "2010-2017",
+                title: "Early RL Revolution",
+                description: "Reinforcement Learning became the dominant paradigm for computer use research. This line of work took automatic, self-contained reward environments and trained models from scratch to predict optimal actions. Deep learning began to transform the field with neural network-based agents.",
+                papers: [
+                    { year: "2016", title: "End-to-End Goal-Driven Web Navigation", cite: "[6]" },
+                    { year: "2017", title: "World of Bits: An Open-Domain Platform for Web-Based Agents", cite: "[7]" },
+                    { year: "2017", title: "AndroidEnv: A Reinforcement Learning Platform for Android", cite: "[8]" }
+                ],
+                technologies: ["Deep Q-Networks", "Policy Gradients", "OpenAI Universe", "MiniWoB"]
+            },
+            {
+                years: "2018-2019",
+                title: "Advanced RL Techniques",
+                description: "Sophisticated approaches emerged including curriculum learning, curiosity-driven exploration, and hierarchical reinforcement learning. Behavior cloning from human demonstrations became more common, bridging the gap between pure RL and supervised learning approaches.",
+                papers: [
+                    { year: "2018", title: "Workflow-Guided Exploration for Web Agents", cite: "[9]" },
+                    { year: "2018", title: "Reinforcement Learning on Web Interfaces Using Curriculum Learning", cite: "[9]" },
+                    { year: "2019", title: "DOM-Q-NET: Grounded RL on Structured Language", cite: "[10]" }
+                ],
+                technologies: ["Workflow-Guided Exploration", "Curriculum Learning", "Hierarchical RL", "DOM Understanding"]
+            },
+            {
+                years: "2020-2022",
+                title: "Behavior Cloning & Scale",
+                description: "Focus shifted to collecting human traces and using behavior cloning at scale. Large-scale datasets emerged as the field prepared for the LLM revolution. Text-only web environments gained popularity as a simpler testbed for developing reasoning capabilities.",
+                papers: [
+                    { year: "2021", title: "WebGPT: Browser-assisted question-answering with human feedback", cite: "[11]" },
+                    { year: "2022", title: "Learning to Navigate Wikipedia by Taking Random Walks" },
+                    { year: "2022", title: "A Data-Driven Approach for Learning to Control Computers" }
+                ],
+                technologies: ["Human Feedback", "Behavior Cloning", "Large-Scale Datasets", "Text-only Environments"]
+            }
+        ];
+
+        let currentEra = 0;
+        let autoplayInterval = null;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const autoplayBtn = document.getElementById('autoplayBtn');
+        const yearDisplay = document.getElementById('yearDisplay');
+        const timelineViz = document.getElementById('timelineViz');
+        const eraContent = document.getElementById('eraContent');
+
+        function createTimelineViz() {
+            timelineViz.innerHTML = '';
+            eras.forEach((era, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'era-dot';
+                dot.title = era.years;
+                dot.addEventListener('click', () => goToEra(index));
+                timelineViz.appendChild(dot);
+            });
+            updateTimelineViz();
+        }
+
+        function updateTimelineViz() {
+            const dots = timelineViz.querySelectorAll('.era-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'passed');
+                if (index === currentEra) {
+                    dot.classList.add('active');
+                } else if (index < currentEra) {
+                    dot.classList.add('passed');
+                }
+            });
+        }
+
+        function renderEra() {
+            const era = eras[currentEra];
+            yearDisplay.textContent = era.years;
+            
+            eraContent.innerHTML = `
+                <h3 class="era-title">
+                    ${era.title}
+                    <span class="era-badge">${era.years}</span>
+                </h3>
+                <p class="era-description">${era.description}</p>
+                <div class="era-papers">
+                    <h4>Key Works</h4>
+                    ${era.papers.map(paper => `
+                        <div class="era-paper">
+                            <span class="paper-year">${paper.year}</span>
+                            <span class="paper-title">${paper.title}${paper.cite ? ` <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">${paper.cite}</a>` : ''}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="era-technologies">
+                    ${era.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+            `;
+
+            updateTimelineViz();
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentEra === 0;
+            nextBtn.disabled = currentEra === eras.length - 1;
+        }
+
+        function goToEra(index) {
+            currentEra = index;
+            renderEra();
+        }
+
+        function nextEra() {
+            if (currentEra < eras.length - 1) {
+                currentEra++;
+                renderEra();
+            } else {
+                stopAutoplay();
+            }
+        }
+
+        function prevEra() {
+            if (currentEra > 0) {
+                currentEra--;
+                renderEra();
+            }
+        }
+
+        function toggleAutoplay() {
+            if (autoplayInterval) {
+                stopAutoplay();
+            } else {
+                startAutoplay();
+            }
+        }
+
+        function startAutoplay() {
+            autoplayBtn.textContent = '⏸ Pause';
+            autoplayBtn.classList.add('playing');
+            autoplayInterval = setInterval(() => {
+                if (currentEra < eras.length - 1) {
+                    nextEra();
+                } else {
+                    stopAutoplay();
+                }
+            }, 4000);
+        }
+
+        function stopAutoplay() {
+            autoplayBtn.textContent = '▶ Auto Play';
+            autoplayBtn.classList.remove('playing');
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+        }
+
+        prevBtn.addEventListener('click', prevEra);
+        nextBtn.addEventListener('click', nextEra);
+        autoplayBtn.addEventListener('click', toggleAutoplay);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevEra();
+            if (e.key === 'ArrowRight') nextEra();
+            if (e.key === ' ') {
+                e.preventDefault();
+                toggleAutoplay();
+            }
+        });
+
+        createTimelineViz();
+        renderEra();
+    </script>
+</body>
+</html>
