@@ -53,7 +53,10 @@
         .carousel-container {
             position: relative;
             height: 400px;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: visible;
+            padding-top: 80px;
+            margin-top: -80px;
         }
 
         .papers-track {
@@ -79,6 +82,17 @@
             margin-bottom: 1.5rem;
             line-height: 1.4;
             max-width: 90%;
+            overflow: visible;
+        }
+        
+        /* Ensure d-cite tooltips have high z-index */
+        d-cite {
+            position: relative;
+            z-index: 100;
+        }
+        
+        d-cite:hover {
+            z-index: 1000;
         }
 
         .paper-card-image {
@@ -90,24 +104,6 @@
             margin-bottom: 1.5rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .paper-card-citation {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .cite-ref {
-            color: #2698ba;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.85em;
-        }
-        
-        .cite-ref:hover {
-            text-decoration: underline;
         }
 
         .paper-card-url {
@@ -236,10 +232,6 @@
                 color: #e9ecef;
             }
             
-            .paper-card-citation {
-                color: #adb5bd;
-            }
-            
             .paper-card-image {
                 border-color: #424246;
             }
@@ -259,8 +251,11 @@
             }
         }
     </style>
+    <script src="/webagentblog/assets/js/distillpub/template.v2.js"></script>
 </head>
 <body>
+    <d-bibliography src="/webagentblog/assets/bibliography/2026-04-27-web-agent.bib"></d-bibliography>
+    
     <div class="papers-carousel">
         <div class="carousel-header">
             <h2 class="carousel-title">Related Surveys</h2>
@@ -270,30 +265,26 @@
         <div class="carousel-container">
             <div class="papers-track" id="papersTrack">
                 <div class="paper-card">
-                    <div class="paper-card-title">A Comprehensive Survey of Agents for Computer Use: Foundations, Challenges, and Future Directions</div>
+                    <div class="paper-card-title">A Comprehensive Survey of Agents for Computer Use: Foundations, Challenges, and Future Directions</div> <d-cite key="sager2025comprehensive"></d-cite>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/comprehensive.png" alt="Comprehensive Survey" onerror="this.style.display='none'">
-                    <div class="paper-card-citation">Sager, P., et al. (2025). <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[2]</a></div>
                     <a class="paper-card-url" href="https://arxiv.org/abs/2501.16150" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
                 
                 <div class="paper-card">
-                    <div class="paper-card-title">A Survey on Large Language Model based Autonomous Agents</div>
+                    <div class="paper-card-title">A Survey on Large Language Model based Autonomous Agents <d-cite key="wang2024survey"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/llmagent.png" alt="LLM Agents Survey" onerror="this.style.display='none'">
-                    <div class="paper-card-citation">Wang, L., et al. (2024). <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[3]</a></div>
                     <a class="paper-card-url" href="https://arxiv.org/abs/2308.11432" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
 
                 <div class="paper-card">
-                    <div class="paper-card-title">OS Agents: A Survey on MLLM-based Agents for Computer, Phone and Browser Use</div>
+                    <div class="paper-card-title">OS Agents: A Survey on MLLM-based Agents for Computer, Phone and Browser Use <d-cite key="hu2025agents"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/treeagents.png" alt="OS Agents Survey" onerror="this.style.display='none'">
-                    <div class="paper-card-citation">Hu, X., et al. ACL (2025). <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[4]</a></div>
                     <a class="paper-card-url" href="https://os-agent-survey.github.io/paper.pdf" target="_blank" rel="noopener">View Paper PDF →</a>
                 </div>
 
                 <div class="paper-card">
-                    <div class="paper-card-title">Survey on Evaluation of LLM-based Agents</div>
+                    <div class="paper-card-title">Survey on Evaluation of LLM-based Agents <d-cite key="yehudai2025survey"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/eval.png" alt="Evaluation Survey" onerror="this.style.display='none'">
-                    <div class="paper-card-citation">Yehudai, A., et al. (2025). <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[5]</a></div>
                     <a class="paper-card-url" href="https://arxiv.org/abs/2503.16416" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
             </div>

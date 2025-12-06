@@ -209,18 +209,6 @@
             font-weight: 500;
         }
 
-        .cite-ref {
-            color: #2698ba;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.85em;
-        }
-        
-        .cite-ref:hover {
-            text-decoration: underline;
-        }
-
         .autoplay-btn {
             background: #f8f9fa;
             border-color: #6c757d;
@@ -335,22 +323,13 @@
                 border-color: #6c757d;
                 color: #adb5bd;
             }
-            
-            .cite-ref {
-                color: #2698ba;
-                font-weight: 600;
-                cursor: pointer;
-                text-decoration: none;
-                font-size: 0.85em;
-            }
-            
-            .cite-ref:hover {
-                text-decoration: underline;
-            }
         }
     </style>
+    <script src="/webagentblog/assets/js/distillpub/template.v2.js"></script>
 </head>
 <body>
+    <d-bibliography src="/webagentblog/assets/bibliography/2026-04-27-web-agent.bib"></d-bibliography>
+
     <div class="time-machine-container">
         <div class="time-machine-header">
             <h2 class="time-machine-title">Pre-LLM Evolution Timeline</h2>
@@ -367,6 +346,19 @@
         <div class="timeline-visualization" id="timelineViz"></div>
 
         <div class="timeline-era" id="eraContent"></div>
+    </div>
+
+    <!-- Hidden container with all d-cite elements pre-created for proper numbering -->
+    <div id="citationCache" style="display: none;">
+        <d-cite key="nogueira2016end" data-cite-key="nogueira2016end"></d-cite>
+        <d-cite key="pmlr-v70-shi17a" data-cite-key="pmlr-v70-shi17a"></d-cite>
+        <d-cite key="toyama2021androidenv" data-cite-key="toyama2021androidenv"></d-cite>
+        <d-cite key="liu2018reinforcement" data-cite-key="liu2018reinforcement"></d-cite>
+        <d-cite key="jiadom" data-cite-key="jiadom"></d-cite>
+        <d-cite key="gurlearning" data-cite-key="gurlearning"></d-cite>
+        <d-cite key="nakano2021webgpt" data-cite-key="nakano2021webgpt"></d-cite>
+        <d-cite key="zaheer2022learning" data-cite-key="zaheer2022learning"></d-cite>
+        <d-cite key="pmlr-v162-humphreys22a" data-cite-key="pmlr-v162-humphreys22a"></d-cite>
     </div>
 
     <script>
@@ -387,9 +379,9 @@
                 title: "Early RL Revolution",
                 description: "Reinforcement Learning became the dominant paradigm for computer use research. This line of work took automatic, self-contained reward environments and trained models from scratch to predict optimal actions. Deep learning began to transform the field with neural network-based agents.",
                 papers: [
-                    { year: "2016", title: "End-to-End Goal-Driven Web Navigation", cite: "[6]" },
-                    { year: "2017", title: "World of Bits: An Open-Domain Platform for Web-Based Agents", cite: "[7]" },
-                    { year: "2017", title: "AndroidEnv: A Reinforcement Learning Platform for Android", cite: "[8]" }
+                    { year: "2016", title: "End-to-End Goal-Driven Web Navigation", citeKey: "nogueira2016end" },
+                    { year: "2017", title: "World of Bits: An Open-Domain Platform for Web-Based Agents", citeKey: "pmlr-v70-shi17a" },
+                    { year: "2021", title: "AndroidEnv: A Reinforcement Learning Platform for Android", citeKey: "toyama2021androidenv" }
                 ],
                 technologies: ["Deep Q-Networks", "Policy Gradients", "OpenAI Universe", "MiniWoB"]
             },
@@ -398,9 +390,9 @@
                 title: "Advanced RL Techniques",
                 description: "Sophisticated approaches emerged including curriculum learning, curiosity-driven exploration, and hierarchical reinforcement learning. Behavior cloning from human demonstrations became more common, bridging the gap between pure RL and supervised learning approaches.",
                 papers: [
-                    { year: "2018", title: "Workflow-Guided Exploration for Web Agents", cite: "[9]" },
-                    { year: "2018", title: "Reinforcement Learning on Web Interfaces Using Curriculum Learning", cite: "[9]" },
-                    { year: "2019", title: "DOM-Q-NET: Grounded RL on Structured Language", cite: "[10]" }
+                    { year: "2018", title: "Reinforcement Learning on Web Interfaces using Workflow-Guided Exploration", citeKey: "liu2018reinforcement" },
+                    { year: "2019", title: "DOM-Q-NET: Grounded RL on Structured Language", citeKey: "jiadom" },
+                    { year: "2019", title: "Learning to Navigate the Web", citeKey: "gurlearning" }
                 ],
                 technologies: ["Workflow-Guided Exploration", "Curriculum Learning", "Hierarchical RL", "DOM Understanding"]
             },
@@ -409,9 +401,9 @@
                 title: "Behavior Cloning & Scale",
                 description: "Focus shifted to collecting human traces and using behavior cloning at scale. Large-scale datasets emerged as the field prepared for the LLM revolution. Text-only web environments gained popularity as a simpler testbed for developing reasoning capabilities.",
                 papers: [
-                    { year: "2021", title: "WebGPT: Browser-assisted question-answering with human feedback", cite: "[11]" },
-                    { year: "2022", title: "Learning to Navigate Wikipedia by Taking Random Walks" },
-                    { year: "2022", title: "A Data-Driven Approach for Learning to Control Computers" }
+                    { year: "2021", title: "WebGPT: Browser-assisted question-answering with human feedback", citeKey: "nakano2021webgpt" },
+                    { year: "2022", title: "Learning to Navigate Wikipedia by Taking Random Walks", citeKey: "zaheer2022learning" },
+                    { year: "2022", title: "A Data-Driven Approach for Learning to Control Computers", citeKey: "pmlr-v162-humphreys22a" }
                 ],
                 technologies: ["Human Feedback", "Behavior Cloning", "Large-Scale Datasets", "Text-only Environments"]
             }
@@ -463,10 +455,10 @@
                 <p class="era-description">${era.description}</p>
                 <div class="era-papers">
                     <h4>Key Works</h4>
-                    ${era.papers.map(paper => `
+                    ${era.papers.map((paper, idx) => `
                         <div class="era-paper">
                             <span class="paper-year">${paper.year}</span>
-                            <span class="paper-title">${paper.title}${paper.cite ? ` <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">${paper.cite}</a>` : ''}</span>
+                            <span class="paper-title" ${paper.citeKey ? `data-cite-key="${paper.citeKey}"` : ''}>${paper.title}${paper.citeKey ? ' <span class="citation-slot"></span>' : ''}</span>
                         </div>
                     `).join('')}
                 </div>
@@ -474,6 +466,19 @@
                     ${era.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                 </div>
             `;
+
+            // Clone pre-initialized d-cite elements from cache
+            document.querySelectorAll('.paper-title[data-cite-key]').forEach(titleEl => {
+                const citeKey = titleEl.dataset.citeKey;
+                const cachedCite = document.querySelector(`#citationCache d-cite[data-cite-key="${citeKey}"]`);
+                if (cachedCite) {
+                    const slot = titleEl.querySelector('.citation-slot');
+                    if (slot) {
+                        const clonedCite = cachedCite.cloneNode(true);
+                        slot.replaceWith(clonedCite);
+                    }
+                }
+            });
 
             updateTimelineViz();
             updateButtons();

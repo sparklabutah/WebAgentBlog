@@ -100,87 +100,109 @@
             height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            font-size: 0.6rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
             border: 2px solid;
+            text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .dataset-star:hover {
             transform: scale(1.3);
-            z-index: 5;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .dataset-star.highlighted {
             transform: scale(1.4);
-            z-index: 6;
+            z-index: 101;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
 
         .dataset-star.hidden {
-            opacity: 0.15;
+            opacity: 0;
             pointer-events: none;
         }
 
-        /* Category colors - using blog-friendly palette */
+        /* Category colors - Light theme */
         .dataset-star[data-category="Computer and OS Control"] {
             background: #d4edda;
             color: #155724;
             border-color: #28a745;
         }
-
         .dataset-star[data-category="Web Control and Navigation"] {
             background: #cce5ff;
             color: #004085;
             border-color: #2698ba;
         }
-
         .dataset-star[data-category="Text-only Web Environments"] {
             background: #fff3cd;
             color: #856404;
             border-color: #ffc107;
         }
-
         .dataset-star[data-category="Web QA and Classification"] {
             background: #f8d7da;
             color: #721c24;
             border-color: #dc3545;
         }
-
         .dataset-star[data-category="Coding and Assistant Tasks"] {
             background: #e2d5f1;
             color: #4a235a;
             border-color: #9b59b6;
         }
 
+        .stats-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ffffff;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            z-index: 10;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stats-overlay h4 {
+            color: #2698ba;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-item {
+            color: #495057;
+            margin-bottom: 0.2rem;
+        }
+
         .legend {
             position: absolute;
-            bottom: 15px;
-            left: 15px;
+            bottom: 10px;
+            right: 10px;
             background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
             padding: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            z-index: 10;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .legend h4 {
-            color: #212529;
+            color: #2698ba;
+            font-size: 0.8rem;
             margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             margin-bottom: 0.3rem;
-            font-size: 0.75rem;
             color: #495057;
         }
 
@@ -191,62 +213,29 @@
             border: 2px solid;
         }
 
-        .stats-overlay {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            padding: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .stats-overlay h4 {
-            color: #2698ba;
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .stat-item {
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
-            color: #495057;
-        }
-
-        .stat-item span {
-            color: #2698ba;
-            font-weight: 600;
-        }
-
         .info-panel {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
             background: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 20;
+            display: none;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            padding: 1.2rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .info-panel.visible {
-            opacity: 1;
-            pointer-events: all;
+            display: block;
         }
 
         .info-panel h3 {
             color: #2698ba;
-            margin-bottom: 1rem;
             font-size: 1rem;
-            padding-right: 25px;
+            margin-bottom: 0.8rem;
+            padding-right: 20px;
             font-weight: 600;
         }
 
@@ -288,18 +277,6 @@
 
         .info-value {
             color: #495057;
-        }
-
-        .cite-ref {
-            color: #2698ba;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.85em;
-        }
-        
-        .cite-ref:hover {
-            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
@@ -384,14 +361,13 @@
                 border-color: #424246;
                 color: #adb5bd;
             }
-            
-            .cite-ref {
-                color: #2698ba;
-            }
         }
     </style>
+    <script src="/webagentblog/assets/js/distillpub/template.v2.js"></script>
 </head>
 <body>
+    <d-bibliography src="/webagentblog/assets/bibliography/2026-04-27-web-agent.bib"></d-bibliography>
+
     <div class="observatory-container">
         <div class="observatory-header">
             <h2 class="observatory-title">Research Observatory</h2>
@@ -471,35 +447,410 @@
         </div>
     </div>
 
+    <!-- Hidden container with all d-cite elements pre-created for proper numbering -->
+    <div id="citationCache" style="display: none;">
+        <d-cite key="xie2024osworld" data-cite-key="xie2024osworld"></d-cite>
+        <d-cite key="rawles2024androidworld" data-cite-key="rawles2024androidworld"></d-cite>
+        <d-cite key="kapoor2024omniact" data-cite-key="kapoor2024omniact"></d-cite>
+        <d-cite key="rawles2024androidinthewild" data-cite-key="rawles2024androidinthewild"></d-cite>
+        <d-cite key="li2024effects" data-cite-key="li2024effects"></d-cite>
+        <d-cite key="bonatti2024windows" data-cite-key="bonatti2024windows"></d-cite>
+        <d-cite key="zhouwebarena" data-cite-key="zhouwebarena"></d-cite>
+        <d-cite key="koh2024visualwebarena" data-cite-key="koh2024visualwebarena"></d-cite>
+        <d-cite key="deng2024mind2web" data-cite-key="deng2024mind2web"></d-cite>
+        <d-cite key="pan2024webcanvas" data-cite-key="pan2024webcanvas"></d-cite>
+        <d-cite key="pmlr-v70-shi17a" data-cite-key="pmlr-v70-shi17a"></d-cite>
+        <d-cite key="liu2018reinforcement" data-cite-key="liu2018reinforcement"></d-cite>
+        <d-cite key="drouin2024workarena" data-cite-key="drouin2024workarena"></d-cite>
+        <d-cite key="boisvert2024workarena++" data-cite-key="boisvert2024workarena++"></d-cite>
+        <d-cite key="nogueira2016end" data-cite-key="nogueira2016end"></d-cite>
+        <d-cite key="zaheer2022learning" data-cite-key="zaheer2022learning"></d-cite>
+        <d-cite key="nakano2021webgpt" data-cite-key="nakano2021webgpt"></d-cite>
+        <d-cite key="liu2024visualwebbench" data-cite-key="liu2024visualwebbench"></d-cite>
+        <d-cite key="pasupat-liang-2014-zero" data-cite-key="pasupat-liang-2014-zero"></d-cite>
+        <d-cite key="liu2024harnessing" data-cite-key="liu2024harnessing"></d-cite>
+        <d-cite key="jimenezswe" data-cite-key="jimenezswe"></d-cite>
+        <d-cite key="swebenchverifiedblog" data-cite-key="swebenchverifiedblog"></d-cite>
+        <d-cite key="yang2024swe" data-cite-key="yang2024swe"></d-cite>
+        <d-cite key="aleithan2024swe" data-cite-key="aleithan2024swe"></d-cite>
+        <d-cite key="chen2024scienceagentbench" data-cite-key="chen2024scienceagentbench"></d-cite>
+        <d-cite key="yoran2407assistantbench" data-cite-key="yoran2407assistantbench"></d-cite>
+        <d-cite key="press2024citeme" data-cite-key="press2024citeme"></d-cite>
+        <d-cite key="mialon2023gaia" data-cite-key="mialon2023gaia"></d-cite>
+    </div>
+
     <script>
+        // Dataset definitions with CORRECT citation keys matching the bibliography
         const datasets = [
-            { name: "OSWorld", category: "Computer and OS Control", os: "Ubuntu or Windows VM", interface: "GUI, CLI", observations: "Screenshots, accessibility tree, terminal outputs", actions: "10 mouse + 6 keyboard with pyautogui", web: "Live", tasks: "Office (32%), workflow (27%), daily (21%)", execution: "Yes, in a VM", examples: "N/A", cite: "[8]", citeKey: "xie2024osworld" },
-            { name: "AndroidWorld", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshot + UI tree representation", actions: "Gestures, typing, navigation buttons + APIs", web: "Live", tasks: "Practical, everyday activities", execution: "Yes, using ADB", examples: "N/A", cite: "[9]", citeKey: "rawles2024androidworld" },
-            { name: "OmniAct", category: "Computer and OS Control", os: "Ubuntu, Windows, macOS", interface: "GUI", observations: "Screenshots + bounding boxes", actions: "7 mouse + 3 keyboard", web: "Static (22 websites)", tasks: "Desktop application tasks", execution: "No, statically against pre-defined solution", examples: "N/A", cite: "[10]", citeKey: "kapoor2024omniact" },
-            { name: "Android in the Wild", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshots + bounding boxes", actions: "TOUCH, LIFT, REPEAT with (x,y) coordinates", web: "Static (fixed web traces)", tasks: "Everyday activities, web lookup", execution: "Action matching to ground truth traces", examples: "715k", cite: "[11]", citeKey: "rawles2024androidinthewild" },
-            { name: "Android Control", category: "Computer and OS Control", os: "Android OS", interface: "GUI", observations: "Screenshot + UI tree representation", actions: "9 actions (click, long_press, type_text, etc.)", web: "Static (fixed web traces)", tasks: "Everyday activities, web lookup", execution: "Action matching to ground truth traces", examples: "15,283", cite: "[12]", citeKey: "li2024effects" },
-            { name: "WindowsAgentArena", category: "Computer and OS Control", os: "Windows VM", interface: "GUI", observations: "Screen representation: screenshot, DOM tree, UI Automation tree", actions: "6 mouse + 2 keyboard + 5 custom", web: "Live, but limited browsing", tasks: "Office (28%), web browsing (19%), Windows system (16%)", execution: "Yes", examples: "154", cite: "[13]", citeKey: "bonatti2024windows" },
-            { name: "WebArena", category: "Web Control and Navigation", os: "N/A", interface: "Chat, Browser", observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree", actions: "12 actions: 6 element operations + 3 tab + 3 URL navigation", web: "Static, 4 categories + 3 utility tools", tasks: "E-commerce (23%), CMS (22.4%), GitLab (22.2%)", execution: "Yes", examples: "812", cite: "[14]", citeKey: "zhouwebarena" },
-            { name: "VisualWebArena", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree, Set-of-Marks", actions: "12 actions (click, hover, type, press, tab-relate, URL navigation)", web: "Static, three realistic web environments", tasks: "Shopping (50.9%), Classifieds (25.5%), Reddit (18.7%)", execution: "Yes", examples: "910", cite: "[15]", citeKey: "koh2024visualwebarena" },
-            { name: "Mind2Web", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "MHTML file of webpage, DOM tree and HAR file", actions: "Target Element, Operation pair (Click, Type, Select Option)", web: "Static (fixed web traces)", tasks: "Travel (27.4%), Info (20.4%), Service (18.3%), Shopping (17.5%)", execution: "No execution (just web traces)", examples: "2,350", cite: "[16]", citeKey: "deng2024mind2web" },
-            { name: "Mind2Web-Live", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Webpage's source code and screenshots, accessibility tree", actions: "9 action types with parameters", web: "Live", tasks: "Web navigation tasks", execution: "Yes", examples: "542", cite: "[16]", citeKey: "deng2024mind2web" },
-            { name: "WebCanvas", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Webpage content, accessibility tree", actions: "Browser actions with parameters", web: "Live", tasks: "Web navigation tasks", execution: "Yes", examples: "542", cite: "[17]", citeKey: "pan2024webcanvas" },
-            { name: "World of Bits", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Screen image + DOM", actions: "Cursor position with mouse actions plus keyboard actions", web: "Offline version of 7 websites", tasks: "MiniWob simple UI (100) and web form filling tasks (7)", execution: "Yes", examples: "107", cite: "[18]", citeKey: "pmlr-v70-shi17a" },
-            { name: "MiniWob++", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Screen image + DOM", actions: "Cursor position with mouse actions plus keyboard actions", web: "None", tasks: "MiniWob tasks plus complicated tasks", execution: "Yes", examples: "100+", cite: "[19]", citeKey: "liu2018reinforcement" },
-            { name: "WorkArena", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Goal + webpage content: HTML and/or AXTree", actions: "BrowserGym actions: element+mouse+keyboard", web: "Static", tasks: "Basic enterprise software tasks", execution: "Yes (validator checks the page)", examples: "19,912", cite: "[20]", citeKey: "boisvert2024workarena++" },
-            { name: "WorkArena++", category: "Web Control and Navigation", os: "N/A", interface: "Browser", observations: "Goal + webpage content: AXTree", actions: "High-level action space from BrowserGym", web: "Static", tasks: "Complex real-world enterprise tasks", execution: "Yes (validator checks the page)", examples: "N/A", cite: "[21]", citeKey: "boisvert2024workarena++" },
-            { name: "WikiNav", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Wikipedia paragraph text", actions: "Outgoing links", web: "Wikipedia", tasks: "Navigation, question answering", execution: "Yes (copy of wikipedia graph)", examples: ">13M navigation traces", cite: "[23]", citeKey: "zaheer2022learning" },
-            { name: "WikiNav-Jericho", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Wikipedia paragraph text", actions: "Outgoing links", web: "Wikipedia", tasks: "Navigation, question answering, fact verification", execution: "Yes (copy of wikipedia graph)", examples: "Infinite navigation traces, 300k QA", cite: "[23]", citeKey: "zaheer2022learning" },
-            { name: "WebGPT", category: "Text-only Web Environments", os: "N/A", interface: "Text", observations: "Current page text", actions: "9 parameterized actions: search, click link, find in page, etc.", web: "Live", tasks: "Long-form question answering", execution: "Yes, using text-based environment", examples: ">1M QA pairs", cite: "[24]", citeKey: "nakano2021webgpt" },
-            { name: "VisualWebBench", category: "Web QA and Classification", os: "N/A", interface: "Visual", observations: "Screenshot + meta description/bounding box/HTML element", actions: "Token prediction", web: "Static", tasks: "7 web-scene tasks: caption, QA, OCR, grounding, action prediction", execution: "No", examples: "1.5K", cite: "[25]", citeKey: "liu2024visualwebbench" },
-            { name: "Zero-shot Entity Extraction", category: "Web QA and Classification", os: "N/A", interface: "Text", observations: "Natural language query + cached HTML page: DOM tree", actions: "Token prediction (return list of entities)", web: "Static", tasks: "Entity extraction", execution: "No", examples: "2,773", cite: "[26]", citeKey: "pasupat-liang-2014-zero" },
-            { name: "MultiUI", category: "Web QA and Classification", os: "N/A", interface: "Visual", observations: "Screenshot + tree", actions: "Token prediction (caption, QA, OCR, click prediction)", web: "Static", tasks: "Captioning/QA", execution: "No", examples: "7.3M", cite: "[27]", citeKey: "liu2024harnessing" },
-            { name: "SWE-BENCH", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Github issue text/description and complete codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches to resolve Python issues", execution: "Yes, apply patch and execute tests", examples: "2294", cite: "[28]", citeKey: "jimenezswe" },
-            { name: "SWE-bench Verified", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Github issue text/description and complete codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches to resolve Python issues", execution: "Yes, apply patch and execute tests", examples: "500", cite: "[29]", citeKey: "swebenchverifiedblog" },
-            { name: "SWE-BENCH Multimodal", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code + Visual", observations: "Github issue with visual elements + codebase", actions: "Token prediction", web: "No", tasks: "Generate code patches for front-end and UI-related JS tasks", execution: "Yes, apply patch and execute tests", examples: "619", cite: "[30]", citeKey: "yang2024swe" },
-            { name: "ScienceAgentBench", category: "Coding and Assistant Tasks", os: "N/A", interface: "Code", observations: "Natural language instruction, dataset, optional expert knowledge", actions: "Token prediction (generate Python program)", web: "No", tasks: "Info visualization (65), Data analysis (59), Model dev (23)", execution: "Yes (program executed & outputs checked)", examples: "102", cite: "[32]", citeKey: "chen2024scienceagentbench" },
-            { name: "AssistantBench", category: "Coding and Assistant Tasks", os: "N/A", interface: "Text", observations: "Natural language instructions", actions: "Web navigation and tool use", web: "Live", tasks: "Realistic time-consuming tasks", execution: "Yes", examples: "214", cite: "[33]", citeKey: "yoran2407assistantbench" },
-            { name: "TheAgentCompany", category: "Coding and Assistant Tasks", os: "N/A", interface: "Browser, Code", observations: "Instructions + web interfaces", actions: "Browser actions + code generation", web: "Static sandbox", tasks: "Professional workplace tasks", execution: "Yes", examples: "175", cite: "[94]", citeKey: "xu2024theagentcompany" }
+            // Computer and OS Control
+            { 
+                name: "OSWorld", 
+                category: "Computer and OS Control", 
+                os: "Ubuntu or Windows VM", 
+                interface: "GUI, CLI", 
+                observations: "Screenshots, accessibility tree, terminal outputs", 
+                actions: "10 mouse + 6 keyboard with pyautogui", 
+                web: "Live", 
+                tasks: "Office (32%), workflow (27%), daily (21%), professional (13%), OS (6%)", 
+                execution: "Yes, in a VM", 
+                examples: "N/A", 
+                citeKey: "xie2024osworld"
+            },
+            { 
+                name: "AndroidWorld", 
+                category: "Computer and OS Control", 
+                os: "Android OS", 
+                interface: "GUI", 
+                observations: "Screenshot + UI tree representation", 
+                actions: "Gestures, typing, navigation buttons + function calling APIs", 
+                web: "Live", 
+                tasks: "Practical, everyday activities", 
+                execution: "Yes, using ADB", 
+                examples: "N/A", 
+                citeKey: "rawles2024androidworld"
+            },
+            { 
+                name: "OmniAct", 
+                category: "Computer and OS Control", 
+                os: "Ubuntu, Windows, macOS", 
+                interface: "GUI", 
+                observations: "Screenshots + bounding boxes", 
+                actions: "7 mouse + 3 keyboard", 
+                web: "Static (22 websites)", 
+                tasks: "Desktop application tasks", 
+                execution: "No, statically against pre-defined solution", 
+                examples: "N/A", 
+                citeKey: "kapoor2024omniact"
+            },
+            { 
+                name: "Android in the Wild", 
+                category: "Computer and OS Control", 
+                os: "Android OS", 
+                interface: "GUI", 
+                observations: "Screenshots + bounding boxes", 
+                actions: "TOUCH, LIFT, REPEAT with (x,y) coordinates", 
+                web: "Static (fixed web traces)", 
+                tasks: "Everyday activities, web lookup", 
+                execution: "Action matching to ground truth traces", 
+                examples: "715k", 
+                citeKey: "rawles2024androidinthewild"
+            },
+            { 
+                name: "Android Control", 
+                category: "Computer and OS Control", 
+                os: "Android OS", 
+                interface: "GUI", 
+                observations: "Screenshot + UI tree representation", 
+                actions: "9 actions (click, long_press, type_text, etc.)", 
+                web: "Static (fixed web traces)", 
+                tasks: "Everyday activities, web lookup", 
+                execution: "Action matching to ground truth traces", 
+                examples: "15,283", 
+                citeKey: "li2024effects"
+            },
+            { 
+                name: "WindowsAgentArena", 
+                category: "Computer and OS Control", 
+                os: "Windows VM", 
+                interface: "GUI", 
+                observations: "Screen representation: screenshot, DOM tree, UI Automation tree", 
+                actions: "6 mouse + 2 keyboard + 5 custom", 
+                web: "Live, but limited browsing", 
+                tasks: "Office (28%), web browsing (19%), Windows system (16%)", 
+                execution: "Yes", 
+                examples: "154", 
+                citeKey: "bonatti2024windows"
+            },
+            // Web Control and Navigation
+            { 
+                name: "WebArena", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Chat, Browser", 
+                observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree", 
+                actions: "12 actions: 6 element operations + 3 tab + 3 URL navigation", 
+                web: "Static, 4 categories + 3 utility tools", 
+                tasks: "E-commerce (23%), CMS (22.4%), GitLab (22.2%)", 
+                execution: "Yes", 
+                examples: "812", 
+                citeKey: "zhouwebarena"
+            },
+            { 
+                name: "VisualWebArena", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "URL + Content: screenshot, HTML DOM tree, accessibility tree, Set-of-Marks", 
+                actions: "12 actions (click, hover, type, press, tab-relate, URL navigation)", 
+                web: "Static, three realistic web environments", 
+                tasks: "Shopping (50.9%), Classifieds (25.5%), Reddit (18.7%)", 
+                execution: "Yes", 
+                examples: "910", 
+                citeKey: "koh2024visualwebarena"
+            },
+            { 
+                name: "Mind2Web", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "MHTML file of webpage, DOM tree and HAR file", 
+                actions: "Target Element, Operation pair (Click, Type, Select Option)", 
+                web: "Static (fixed web traces)", 
+                tasks: "Travel (27.4%), Info (20.4%), Service (18.3%), Shopping (17.5%)", 
+                execution: "No execution (just web traces)", 
+                examples: "2,350", 
+                citeKey: "deng2024mind2web"
+            },
+            { 
+                name: "Mind2Web-Live", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Webpage's source code and screenshots, accessibility tree", 
+                actions: "9 action types with parameters", 
+                web: "Live", 
+                tasks: "Web navigation tasks", 
+                execution: "Yes", 
+                examples: "542", 
+                citeKey: "pan2024webcanvas"
+            },
+            { 
+                name: "World of Bits", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screen image + DOM", 
+                actions: "Cursor position with mouse actions plus keyboard actions", 
+                web: "Offline version of 7 websites", 
+                tasks: "MiniWob simple UI (100) and web form filling tasks (7)", 
+                execution: "Yes", 
+                examples: "107", 
+                citeKey: "pmlr-v70-shi17a"
+            },
+            { 
+                name: "MiniWob++", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screen image + DOM", 
+                actions: "Cursor position with mouse actions plus keyboard actions", 
+                web: "None", 
+                tasks: "MiniWob tasks plus complicated tasks", 
+                execution: "Yes", 
+                examples: "100+", 
+                citeKey: "liu2018reinforcement"
+            },
+            { 
+                name: "WorkArena", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Goal + webpage content: HTML and/or AXTree", 
+                actions: "BrowserGym actions: element+mouse+keyboard", 
+                web: "Static", 
+                tasks: "Basic enterprise software tasks", 
+                execution: "Yes (validator checks the page)", 
+                examples: "19,912", 
+                citeKey: "drouin2024workarena"
+            },
+            { 
+                name: "WorkArena++", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Goal + webpage content: AXTree", 
+                actions: "High-level action space from BrowserGym", 
+                web: "Static", 
+                tasks: "Complex real-world enterprise tasks", 
+                execution: "Yes (validator checks the page)", 
+                examples: "N/A", 
+                citeKey: "boisvert2024workarena++"
+            },
+            // Text-only Web Environments
+            { 
+                name: "End-to-end Goal-driven Web Nav", 
+                category: "Text-only Web Environments", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Wikipedia paragraph text", 
+                actions: "Outgoing links", 
+                web: "Wikipedia", 
+                tasks: "Navigation, question answering", 
+                execution: "Yes (copy of wikipedia graph)", 
+                examples: ">13M navigation traces, >100k QA", 
+                citeKey: "nogueira2016end"
+            },
+            { 
+                name: "Learning to Navigate Wikipedia", 
+                category: "Text-only Web Environments", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Wikipedia paragraph text", 
+                actions: "Outgoing links", 
+                web: "Wikipedia", 
+                tasks: "Navigation, question answering, fact verification", 
+                execution: "Yes (copy of wikipedia graph)", 
+                examples: "Infinite navigation traces, 300k QA", 
+                citeKey: "zaheer2022learning"
+            },
+            { 
+                name: "WebGPT", 
+                category: "Text-only Web Environments", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Current page text", 
+                actions: "9 parameterized actions: search, click link, find in page, etc.", 
+                web: "Live", 
+                tasks: "Long-form question answering", 
+                execution: "Yes, using text-based environment", 
+                examples: ">1M QA pairs", 
+                citeKey: "nakano2021webgpt"
+            },
+            // Web QA and Classification
+            { 
+                name: "VisualWebBench", 
+                category: "Web QA and Classification", 
+                os: "N/A", 
+                interface: "Visual", 
+                observations: "Screenshot + meta description/bounding box/HTML element", 
+                actions: "Token prediction", 
+                web: "Static", 
+                tasks: "7 web-scene tasks: caption, QA, OCR, grounding, action prediction", 
+                execution: "No", 
+                examples: "1.5K", 
+                citeKey: "liu2024visualwebbench"
+            },
+            { 
+                name: "Zero-shot Entity Extraction", 
+                category: "Web QA and Classification", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Natural language query + cached HTML page: DOM tree", 
+                actions: "Token prediction (return list of entities)", 
+                web: "Static", 
+                tasks: "Entity extraction", 
+                execution: "No", 
+                examples: "2,773", 
+                citeKey: "pasupat-liang-2014-zero"
+            },
+            { 
+                name: "MultiUI", 
+                category: "Web QA and Classification", 
+                os: "N/A", 
+                interface: "Visual", 
+                observations: "Screenshot + tree", 
+                actions: "Token prediction (caption, QA, OCR, click prediction)", 
+                web: "Static", 
+                tasks: "Captioning/QA", 
+                execution: "No", 
+                examples: "7.3M", 
+                citeKey: "liu2024harnessing"
+            },
+            // Coding and Assistant Tasks
+            { 
+                name: "SWE-BENCH", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Github issue text/description and complete codebase", 
+                actions: "Token prediction", 
+                web: "No", 
+                tasks: "Generate code patches to resolve Python issues", 
+                execution: "Yes, apply patch and execute tests", 
+                examples: "2294", 
+                citeKey: "jimenezswe"
+            },
+            { 
+                name: "SWE-bench Verified", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Github issue text/description and complete codebase", 
+                actions: "Token prediction", 
+                web: "No", 
+                tasks: "Generate code patches to resolve Python issues", 
+                execution: "Yes, apply patch and execute tests", 
+                examples: "500", 
+                citeKey: "swebenchverifiedblog"
+            },
+            { 
+                name: "SWE-BENCH Multimodal", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code + Visual", 
+                observations: "Github issue with visual elements + codebase", 
+                actions: "Token prediction", 
+                web: "No", 
+                tasks: "Generate code patches for front-end and UI-related JS tasks", 
+                execution: "Yes, apply patch and execute tests", 
+                examples: "619", 
+                citeKey: "yang2024swe"
+            },
+            { 
+                name: "SWE-Bench+", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Github issue text/description and complete codebase", 
+                actions: "Token prediction", 
+                web: "No", 
+                tasks: "Generate code patches to resolve Python issues", 
+                execution: "Yes, apply patch and execute tests", 
+                examples: "548", 
+                citeKey: "aleithan2024swe"
+            },
+            { 
+                name: "ScienceAgentBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Natural language instruction, dataset, optional expert knowledge", 
+                actions: "Token prediction (generate Python program)", 
+                web: "No", 
+                tasks: "Info visualization (65), Data analysis (59), Model dev (23)", 
+                execution: "Yes (program executed & outputs checked)", 
+                examples: "102", 
+                citeKey: "chen2024scienceagentbench"
+            },
+            { 
+                name: "AssistantBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Natural language instructions", 
+                actions: "Web navigation and tool use", 
+                web: "Live", 
+                tasks: "Realistic time-consuming tasks", 
+                execution: "Yes", 
+                examples: "214", 
+                citeKey: "yoran2407assistantbench"
+            },
+            { 
+                name: "CiteME", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Citation query", 
+                actions: "3 parameterized actions: search, read, select", 
+                web: "Live (may require web search)", 
+                tasks: "Finding paper citations", 
+                execution: "No, evaluated just on final answer", 
+                examples: "130", 
+                citeKey: "press2024citeme"
+            },
+            { 
+                name: "GAIA", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Question text", 
+                actions: "N/A", 
+                web: "May require web search", 
+                tasks: "Web browsing, coding, multi-modality, diverse file-type reading", 
+                execution: "No, evaluated just on final answer", 
+                examples: "466 QA pairs", 
+                citeKey: "mialon2023gaia"
+            }
         ];
 
         const cosmosView = document.getElementById('cosmosView');
@@ -548,9 +899,6 @@
             document.querySelectorAll('.dataset-star').forEach(s => s.classList.remove('highlighted'));
             star.classList.add('highlighted');
             
-            const citeLink = dataset.cite ? 
-                `<div class="info-item"><span class="info-label">Citation:</span><span class="info-value"><a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">${dataset.cite}</a></span></div>` : '';
-            
             datasetName.textContent = dataset.name;
             datasetInfo.innerHTML = `
                 <div class="info-item"><span class="info-label">Category:</span><span class="info-value">${dataset.category}</span></div>
@@ -562,8 +910,19 @@
                 <div class="info-item"><span class="info-label">Tasks:</span><span class="info-value">${dataset.tasks}</span></div>
                 <div class="info-item"><span class="info-label">Execution:</span><span class="info-value">${dataset.execution}</span></div>
                 <div class="info-item"><span class="info-label">Examples:</span><span class="info-value">${dataset.examples}</span></div>
-                ${citeLink}
+                ${dataset.citeKey ? '<div class="info-item"><span class="info-label">Citation:</span><span class="info-value" id="citationSlot"></span></div>' : ''}
             `;
+            
+            // Clone the pre-initialized d-cite element from cache
+            if (dataset.citeKey) {
+                const cachedCite = document.querySelector(`#citationCache d-cite[data-cite-key="${dataset.citeKey}"]`);
+                if (cachedCite) {
+                    const citationSlot = document.getElementById('citationSlot');
+                    const clonedCite = cachedCite.cloneNode(true);
+                    citationSlot.appendChild(clonedCite);
+                }
+            }
+            
             infoPanel.classList.add('visible');
         }
 

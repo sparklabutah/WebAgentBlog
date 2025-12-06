@@ -126,18 +126,6 @@
             color: #212529;
         }
 
-        .cite-ref {
-            color: #2698ba;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.85em;
-        }
-        
-        .cite-ref:hover {
-            text-decoration: underline;
-        }
-
         @media (max-width: 600px) {
             .definitions-grid {
                 grid-template-columns: 1fr;
@@ -196,8 +184,11 @@
             }
         }
     </style>
+    <script src="/webagentblog/assets/js/distillpub/template.v2.js"></script>
 </head>
 <body>
+    <d-bibliography src="/webagentblog/assets/bibliography/2026-04-27-web-agent.bib"></d-bibliography>
+
     <div class="definitions-container">
         <div class="definitions-header">
             <h3 class="definitions-title">Key Definitions</h3>
@@ -209,7 +200,7 @@
                 <div class="definition-term">Agent</div>
                 <div class="definition-preview">The learner and decision maker...</div>
                 <div class="definition-full">
-                    <strong>Sutton and Barto <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[1]</a>:</strong> "The learner and decision maker is called the agent. The thing it interacts with, comprising everything outside the agent, is called the environment." These interact continually. The agent receives some representation of the environment's state and on that basis selects an action.
+                    <strong>Sutton and Barto <d-cite key="sutton2018reinforcement"></d-cite>:</strong> "The learner and decision maker is called the agent. The thing it interacts with, comprising everything outside the agent, is called the environment." These interact continually. The agent receives some representation of the environment's state and on that basis selects an action.
                 </div>
             </div>
 
@@ -225,7 +216,7 @@
                 <div class="definition-term">Observations</div>
                 <div class="definition-preview">Partial information about state...</div>
                 <div class="definition-full">
-                    <strong>Sutton and Barto <a class="cite-ref" href="#" onclick="window.open('/webagentblog/blog/2026/web-agent/#d-bibliography', '_parent'); return false;">[1]</a>:</strong> "Observations — signals that depend on its [environment's] state but, like a robot's sensors, provide only partial information about it." In computer use, these might be screenshots, DOM trees, or accessibility information.
+                    <strong>Sutton and Barto <d-cite key="sutton2018reinforcement"></d-cite>:</strong> "Observations — signals that depend on its [environment's] state but, like a robot's sensors, provide only partial information about it." In computer use, these might be screenshots, DOM trees, or accessibility information.
                 </div>
             </div>
 
@@ -257,7 +248,10 @@
 
     <script>
         document.querySelectorAll('.definition-card').forEach(card => {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function(e) {
+                // Don't toggle if clicking on a citation link
+                if (e.target.closest('d-cite')) return;
+                
                 document.querySelectorAll('.definition-card').forEach(c => {
                     if (c !== this) c.classList.remove('expanded');
                 });
