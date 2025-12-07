@@ -20,48 +20,48 @@
         }
 
         .time-machine-container {
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .time-machine-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.8rem;
         }
 
         .time-machine-title {
             color: #212529;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .time-machine-subtitle {
             color: #6c757d;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .timeline-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .timeline-btn {
             background: #ffffff;
             border: 1px solid #2698ba;
             color: #2698ba;
-            padding: 0.6rem 1.2rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1rem;
+            font-weight: 600;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            min-width: 36px;
         }
 
         .timeline-btn:hover:not(:disabled) {
@@ -78,25 +78,24 @@
             background: #f8f9fa;
             border: 1px solid rgba(0, 0, 0, 0.1);
             color: #212529;
-            padding: 0.6rem 1.5rem;
+            padding: 0.4rem 1rem;
             border-radius: 4px;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            min-width: 140px;
+            min-width: 100px;
             text-align: center;
         }
 
         .timeline-visualization {
             display: flex;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             gap: 0.5rem;
-            flex-wrap: wrap;
         }
 
         .era-dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: #e9ecef;
             border: 2px solid #dee2e6;
@@ -124,7 +123,7 @@
             background: #f8f9fa;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1rem;
             animation: fadeIn 0.3s ease;
         }
 
@@ -135,13 +134,12 @@
 
         .era-title {
             color: #212529;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .era-badge {
@@ -151,30 +149,33 @@
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: 600;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .era-description {
             color: #495057;
-            line-height: 1.7;
-            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
         }
 
         .era-papers {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .era-papers h4 {
             color: #2698ba;
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
         .era-paper {
             display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-            padding: 0.6rem 0;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
@@ -186,71 +187,57 @@
             color: #2698ba;
             font-weight: 600;
             min-width: 50px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            flex-shrink: 0;
         }
 
         .paper-title {
             color: #495057;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            flex: 1;
+            white-space: normal;
+        }
+
+        /* Force d-cite to be inline */
+        d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
+        }
+        
+        .paper-title d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
         }
 
         .era-technologies {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .tech-tag {
             background: #e3f2fd;
             color: #2698ba;
-            padding: 0.35rem 0.7rem;
+            padding: 0.25rem 0.5rem;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
-        .autoplay-btn {
-            background: #f8f9fa;
-            border-color: #6c757d;
-            color: #6c757d;
-        }
-
-        .autoplay-btn:hover:not(:disabled) {
-            background: #6c757d;
-            color: #ffffff;
-            border-color: #6c757d;
-        }
-
-        .autoplay-btn.playing {
-            background: #dc3545;
-            border-color: #dc3545;
-            color: #ffffff;
-        }
-
         @media (max-width: 768px) {
-            .timeline-controls {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-
             .timeline-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
             }
-
-            .era-title {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .era-paper {
-                flex-direction: column;
-                gap: 0.3rem;
-            }
-
-            .paper-year {
-                min-width: auto;
+            
+            .timeline-year-display {
+                min-width: 100px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -318,11 +305,6 @@
                 background: #1e4a5a;
             }
             
-            .autoplay-btn {
-                background: #2c3237;
-                border-color: #6c757d;
-                color: #adb5bd;
-            }
         }
     </style>
     <script src="/webagentblog/assets/js/distillpub/template.v2.js"></script>
@@ -332,15 +314,14 @@
 
     <div class="time-machine-container">
         <div class="time-machine-header">
-            <h2 class="time-machine-title">Pre-LLM Evolution Timeline</h2>
+            <h2 class="time-machine-title">Computer Use Time Machine ⏰</h2>
             <p class="time-machine-subtitle">Journey through the history of computer use research</p>
         </div>
 
         <div class="timeline-controls">
-            <button class="timeline-btn" id="prevBtn">← Previous Era</button>
+            <button class="timeline-btn" id="prevBtn">←</button>
             <div class="timeline-year-display" id="yearDisplay">2000s</div>
-            <button class="timeline-btn" id="nextBtn">Next Era →</button>
-            <button class="timeline-btn autoplay-btn" id="autoplayBtn">▶ Auto Play</button>
+            <button class="timeline-btn" id="nextBtn">→</button>
         </div>
 
         <div class="timeline-visualization" id="timelineViz"></div>
@@ -410,11 +391,9 @@
         ];
 
         let currentEra = 0;
-        let autoplayInterval = null;
 
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const autoplayBtn = document.getElementById('autoplayBtn');
         const yearDisplay = document.getElementById('yearDisplay');
         const timelineViz = document.getElementById('timelineViz');
         const eraContent = document.getElementById('eraContent');
@@ -475,6 +454,10 @@
                     const slot = titleEl.querySelector('.citation-slot');
                     if (slot) {
                         const clonedCite = cachedCite.cloneNode(true);
+                        // Force inline before inserting
+                        clonedCite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important;';
+                        // Insert a space before the citation
+                        titleEl.insertBefore(document.createTextNode(' '), slot);
                         slot.replaceWith(clonedCite);
                     }
                 }
@@ -498,8 +481,6 @@
             if (currentEra < eras.length - 1) {
                 currentEra++;
                 renderEra();
-            } else {
-                stopAutoplay();
             }
         }
 
@@ -510,50 +491,125 @@
             }
         }
 
-        function toggleAutoplay() {
-            if (autoplayInterval) {
-                stopAutoplay();
-            } else {
-                startAutoplay();
-            }
-        }
-
-        function startAutoplay() {
-            autoplayBtn.textContent = '⏸ Pause';
-            autoplayBtn.classList.add('playing');
-            autoplayInterval = setInterval(() => {
-                if (currentEra < eras.length - 1) {
-                    nextEra();
-                } else {
-                    stopAutoplay();
-                }
-            }, 4000);
-        }
-
-        function stopAutoplay() {
-            autoplayBtn.textContent = '▶ Auto Play';
-            autoplayBtn.classList.remove('playing');
-            if (autoplayInterval) {
-                clearInterval(autoplayInterval);
-                autoplayInterval = null;
-            }
-        }
-
         prevBtn.addEventListener('click', prevEra);
         nextBtn.addEventListener('click', nextEra);
-        autoplayBtn.addEventListener('click', toggleAutoplay);
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') prevEra();
             if (e.key === 'ArrowRight') nextEra();
-            if (e.key === ' ') {
-                e.preventDefault();
-                toggleAutoplay();
-            }
         });
 
         createTimelineViz();
         renderEra();
+
+        // Author names mapping for citations
+        const authorNames = {
+            'nogueira2016end': 'Nogueira & Cho',
+            'pmlr-v70-shi17a': 'Shi et al.',
+            'toyama2021androidenv': 'Toyama et al.',
+            'liu2018reinforcement': 'Liu et al.',
+            'jiadom': 'Jia et al.',
+            'gurlearning': 'Gur et al.',
+            'nakano2021webgpt': 'Nakano et al.',
+            'zaheer2022learning': 'Zaheer et al.',
+            'pmlr-v162-humphreys22a': 'Humphreys et al.'
+        };
+        const citeLinks = {
+            'nogueira2016end': 'https://arxiv.org/abs/1607.05673',
+            'pmlr-v70-shi17a': 'https://proceedings.mlr.press/v70/shi17a.html',
+            'toyama2021androidenv': 'https://arxiv.org/abs/2105.13231',
+            'liu2018reinforcement': 'https://openreview.net/forum?id=Sk5qOMy0W',
+            'jiadom': 'https://openreview.net/forum?id=HJ5xgC9twH',
+            'gurlearning': 'https://openreview.net/forum?id=Hyl7ygHYPM',
+            'nakano2021webgpt': 'https://arxiv.org/abs/2112.09332',
+            'zaheer2022learning': 'https://arxiv.org/abs/2206.15472',
+            'pmlr-v162-humphreys22a': 'https://proceedings.mlr.press/v162/humphreys22a.html'
+        };
+
+        // Style d-cite to display inline with author names
+        function styleCitations() {
+            const applyStyles = () => {
+                document.querySelectorAll('d-cite').forEach(cite => {
+                    const keys = (cite.getAttribute('key') || cite.getAttribute('data-cite-key') || '')
+                        .split(',')
+                        .map(k => k.trim())
+                        .filter(Boolean);
+                    const authorLabel = keys.map(k => authorNames[k] || k || 'Citation').join('; ') || 'Citation';
+                    
+                    // Force inline display on the element itself
+                    cite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important; position: relative !important;';
+                    
+                    const styleShadowDOM = () => {
+                        if (!cite.shadowRoot) {
+                            setTimeout(styleShadowDOM, 10);
+                            return;
+                        }
+
+                        // Inject style to force :host to be inline
+                        let hostStyle = cite.shadowRoot.querySelector('style[data-inline-host]');
+                        if (!hostStyle) {
+                            hostStyle = document.createElement('style');
+                            hostStyle.setAttribute('data-inline-host', '');
+                            hostStyle.textContent = ':host { display: inline !important; white-space: nowrap !important; }';
+                            cite.shadowRoot.insertBefore(hostStyle, cite.shadowRoot.firstChild);
+                        }
+
+                        // Hide hover cards for time machine citations
+                        let hideHoverStyle = cite.shadowRoot.querySelector('style[data-hide-hover]');
+                        if (!hideHoverStyle) {
+                            hideHoverStyle = document.createElement('style');
+                            hideHoverStyle.setAttribute('data-hide-hover', '');
+                            hideHoverStyle.textContent = 'd-hover-box { display: none !important; visibility: hidden !important; pointer-events: none !important; }';
+                            cite.shadowRoot.insertBefore(hideHoverStyle, cite.shadowRoot.firstChild);
+                        }
+                        
+                        const wrapper = cite.shadowRoot.querySelector('#citation-') || cite.shadowRoot.querySelector('.citation');
+                        if (wrapper) {
+                            wrapper.style.cssText = 'display: inline !important; margin: 0 !important; padding: 0 !important;';
+                        }
+
+                        const span = cite.shadowRoot.querySelector('.citation-number') || cite.shadowRoot.querySelector('span');
+                        if (span) {
+                            span.textContent = `(${authorLabel})`;
+                            span.style.cssText = 'display: inline !important; white-space: nowrap !important; color: #2698ba !important; cursor: pointer !important; text-decoration: underline !important; font-size: 1em !important; vertical-align: baseline !important; line-height: inherit !important;';
+
+                            const primaryKey = keys[0];
+                            const entry = (cite.entries && cite.entries[0]) || {};
+                            const arxivMatch = typeof entry.journal === 'string' ? entry.journal.match(/arXiv[:\s]*([0-9\.v]+)\b/i) : null;
+                            const href = citeLinks[primaryKey] || entry.url || entry.pdf || (arxivMatch ? `https://arxiv.org/abs/${arxivMatch[1]}` : null);
+                            if (href) {
+                                span.onclick = () => window.open(href, '_blank', 'noopener');
+                                span.setAttribute('role', 'link');
+                                span.setAttribute('aria-label', `${authorLabel} reference`);
+                            } else {
+                                span.onclick = null;
+                                span.removeAttribute('role');
+                                span.removeAttribute('aria-label');
+                            }
+                        }
+                    };
+
+                    // Override default displayNumbers so future updates stay author-based
+                    cite.displayNumbers = () => {
+                        styleShadowDOM();
+                    };
+                    
+                    styleShadowDOM();
+                });
+            };
+
+            customElements.whenDefined('d-cite').then(applyStyles);
+        }
+
+        // Run after a short delay to ensure d-cite elements are fully rendered
+        setTimeout(styleCitations, 500);
+        
+        // Also run after each era change
+        const originalRenderEra = renderEra;
+        renderEra = function() {
+            originalRenderEra();
+            setTimeout(styleCitations, 100);
+        };
     </script>
 </body>
 </html>

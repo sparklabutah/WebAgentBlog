@@ -126,6 +126,25 @@
             color: #212529;
         }
 
+        /* Force d-cite to be inline */
+        d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
+        }
+        
+        .definition-full d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
+        }
+        
+        .definition-full {
+            white-space: normal;
+        }
+
         @media (max-width: 600px) {
             .definitions-grid {
                 grid-template-columns: 1fr;
@@ -258,6 +277,66 @@
                 this.classList.toggle('expanded');
             });
         });
+
+        // Author names mapping for citations
+        const authorNames = {
+            'sutton2018reinforcement': 'Sutton & Barto'
+        };
+
+        // Style d-cite to display inline with author names
+        function styleCitations() {
+            const applyStyles = () => {
+                document.querySelectorAll('d-cite').forEach(cite => {
+                    const keys = (cite.getAttribute('key') || cite.getAttribute('data-cite-key') || '')
+                        .split(',')
+                        .map(k => k.trim())
+                        .filter(Boolean);
+                    const authorLabel = keys.map(k => authorNames[k] || k || 'Citation').join('; ') || 'Citation';
+                    
+                    // Force inline display on the element itself
+                    cite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important; position: relative !important;';
+                    
+                    const styleShadowDOM = () => {
+                        if (!cite.shadowRoot) {
+                            setTimeout(styleShadowDOM, 10);
+                            return;
+                        }
+
+                        // Inject style to force :host to be inline
+                        let hostStyle = cite.shadowRoot.querySelector('style[data-inline-host]');
+                        if (!hostStyle) {
+                            hostStyle = document.createElement('style');
+                            hostStyle.setAttribute('data-inline-host', '');
+                            hostStyle.textContent = ':host { display: inline !important; white-space: nowrap !important; }';
+                            cite.shadowRoot.insertBefore(hostStyle, cite.shadowRoot.firstChild);
+                        }
+                        
+                        const wrapper = cite.shadowRoot.querySelector('#citation-') || cite.shadowRoot.querySelector('.citation');
+                        if (wrapper) {
+                            wrapper.style.cssText = 'display: inline !important; margin: 0 !important; padding: 0 !important;';
+                        }
+
+                        const span = cite.shadowRoot.querySelector('.citation-number') || cite.shadowRoot.querySelector('span');
+                        if (span) {
+                            span.textContent = `(${authorLabel})`;
+                            span.style.cssText = 'display: inline !important; white-space: nowrap !important; color: #2698ba !important; cursor: pointer !important; text-decoration: none !important; font-size: 1em !important; vertical-align: baseline !important; line-height: inherit !important;';
+                        }
+                    };
+
+                    // Override default displayNumbers so future updates stay author-based
+                    cite.displayNumbers = () => {
+                        styleShadowDOM();
+                    };
+                    
+                    styleShadowDOM();
+                });
+            };
+
+            customElements.whenDefined('d-cite').then(applyStyles);
+        }
+
+        // Run after a short delay to ensure d-cite elements are fully rendered
+        setTimeout(styleCitations, 500);
     </script>
 </body>
 </html>

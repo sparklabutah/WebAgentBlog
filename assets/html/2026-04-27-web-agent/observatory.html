@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Observatory</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+
+        :root {
+            --ink: #0f172a;
+            --muted: #5b6475;
+            --surface: #f5f7fb;
+            --stroke: #dce2ed;
+            --accent: #1ea7c4;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,25 +22,28 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Space Grotesk', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: #ffffff;
-            color: #212529;
+            color: var(--ink);
             min-height: 100vh;
             line-height: 1.6;
+            overflow: hidden;
         }
 
         .observatory-container {
             padding: 1.5rem;
             min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .observatory-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.1rem;
         }
 
         .observatory-title {
-            color: #212529;
+            color: var(--ink);
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.3rem;
@@ -42,47 +55,83 @@
         }
 
         .controls-panel {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #f7f9fd 0%, #eef3ff 100%);
+            border: 1px solid var(--stroke);
+            border-radius: 14px;
+            padding: 0.9rem 1rem 1rem;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+            margin-bottom: 1.25rem;
+            overflow: visible;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 0.75rem 1rem;
+            align-items: end;
         }
 
         .filter-group {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            flex-direction: column;
+            gap: 0.35rem;
+            padding: 0.65rem 0.75rem;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid var(--stroke);
+            box-shadow: inset 0 1px 0 #ffffff, 0 10px 24px rgba(15, 23, 42, 0.05);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        .filter-group:hover {
+            transform: translateY(-1px);
+            border-color: #cdd7e5;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
         }
 
         .filter-label {
-            color: #495057;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            font-weight: 500;
+            color: var(--muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .filter-select, .search-input {
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            color: #212529;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            background: #f8fafc;
+            border: 1px solid var(--stroke);
+            color: var(--ink);
+            padding: 0.55rem 0.65rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .filter-select:focus, .search-input:focus {
             outline: none;
-            border-color: #2698ba;
-            box-shadow: 0 0 0 2px rgba(38, 152, 186, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(30, 167, 196, 0.2);
+        }
+
+        .search-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            width: 16px;
+            height: 16px;
+            color: var(--muted);
+            opacity: 0.8;
         }
 
         .search-input {
-            width: 180px;
+            padding-left: 1.9rem;
+            max-width: 240px;
         }
 
         .cosmos-view {
@@ -225,6 +274,9 @@
             display: none;
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-height: calc(100% - 20px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .info-panel.visible {
@@ -279,14 +331,32 @@
             color: #495057;
         }
 
+        /* Force d-cite to be inline */
+        d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
+        }
+        
+        .info-value d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
+        }
+        
+        .info-value {
+            white-space: normal;
+        }
+        
         @media (max-width: 768px) {
             .controls-panel {
-                flex-direction: column;
-                align-items: stretch;
+                padding: 0.85rem;
             }
-            
-            .filter-group {
-                justify-content: space-between;
+
+            .filters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             }
             
             .search-input {
@@ -301,6 +371,7 @@
                 width: 90vw;
                 max-width: 350px;
                 z-index: 1000;
+                max-height: 80vh;
             }
             
             .legend {
@@ -311,41 +382,57 @@
         /* Dark mode support */
         @media (prefers-color-scheme: dark) {
             body {
-                background: #1c1c1d;
-                color: #c4c4c4;
+                background: #0d1117;
+                color: #e5e7eb;
             }
             
             .observatory-title {
-                color: #e9ecef;
+                color: #f5f7fb;
             }
             
             .observatory-subtitle {
-                color: #adb5bd;
+                color: #9ca3af;
             }
             
             .controls-panel {
-                background: #212529;
-                border-color: #424246;
+                background: linear-gradient(135deg, #0f172a 0%, #111927 100%);
+                border-color: #2f3542;
+                box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+            }
+
+            .filter-group {
+                background: #111520;
+                border-color: #2f3542;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 12px 26px rgba(0, 0, 0, 0.45);
+            }
+
+            .filter-group:hover {
+                border-color: #3b4352;
+                box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
             }
             
             .filter-label {
-                color: #adb5bd;
+                color: #9ca3af;
             }
             
             .filter-select, .search-input {
-                background: #2c3237;
-                border-color: #424246;
-                color: #e9ecef;
+                background: #0b0f18;
+                border-color: #2f3542;
+                color: #e5e7eb;
+            }
+
+            .search-icon {
+                color: #9ca3af;
             }
             
             .cosmos-view {
-                background: linear-gradient(135deg, #212529 0%, #2c3237 100%);
-                border-color: #424246;
+                background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+                border-color: #2f3542;
             }
             
             .legend, .stats-overlay, .info-panel {
-                background: #2c3237;
-                border-color: #424246;
+                background: #111520;
+                border-color: #2f3542;
             }
             
             .legend h4, .info-panel h3 {
@@ -375,36 +462,43 @@
         </div>
 
         <div class="controls-panel">
-            <div class="filter-group">
-                <label class="filter-label">Category:</label>
-                <select class="filter-select" id="categoryFilter">
-                    <option value="">All Categories</option>
-                    <option value="Computer and OS Control">Computer & OS Control</option>
-                    <option value="Web Control and Navigation">Web Control & Navigation</option>
-                    <option value="Text-only Web Environments">Text-only Web</option>
-                    <option value="Web QA and Classification">Web QA & Classification</option>
-                    <option value="Coding and Assistant Tasks">Coding & Assistant</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Execution:</label>
-                <select class="filter-select" id="executionFilter">
-                    <option value="">All</option>
-                    <option value="yes">Execution-based</option>
-                    <option value="no">Non-execution</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Web:</label>
-                <select class="filter-select" id="webFilter">
-                    <option value="">All</option>
-                    <option value="yes">Web-based</option>
-                    <option value="no">Non-web</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Search:</label>
-                <input type="text" class="search-input" id="searchInput" placeholder="Search datasets...">
+            <div class="filters-grid">
+                <label class="filter-group search-block">
+                    <span class="filter-label">Search</span>
+                    <div class="search-wrap">
+                        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M15.5 14h-.79l-.28-.27a6 6 0 1 0-.9.9l.27.28v.79l4.25 4.25a1 1 0 0 0 1.42-1.42L15.5 14zm-6 0A4.5 4.5 0 1 1 14 9.5 4.51 4.51 0 0 1 9.5 14z" fill="currentColor"/>
+                        </svg>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search datasets...">
+                    </div>
+                </label>
+                <label class="filter-group">
+                    <span class="filter-label">Category</span>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Computer and OS Control">Computer & OS Control</option>
+                        <option value="Web Control and Navigation">Web Control & Navigation</option>
+                        <option value="Text-only Web Environments">Text-only Web</option>
+                        <option value="Web QA and Classification">Web QA & Classification</option>
+                        <option value="Coding and Assistant Tasks">Coding & Assistant</option>
+                    </select>
+                </label>
+                <label class="filter-group">
+                    <span class="filter-label">Execution</span>
+                    <select class="filter-select" id="executionFilter">
+                        <option value="">All</option>
+                        <option value="yes">Execution-based</option>
+                        <option value="no">Non-execution</option>
+                    </select>
+                </label>
+                <label class="filter-group">
+                    <span class="filter-label">Web</span>
+                    <select class="filter-select" id="webFilter">
+                        <option value="">All</option>
+                        <option value="yes">Web-based</option>
+                        <option value="no">Non-web</option>
+                    </select>
+                </label>
             </div>
         </div>
 
@@ -919,6 +1013,8 @@
                 if (cachedCite) {
                     const citationSlot = document.getElementById('citationSlot');
                     const clonedCite = cachedCite.cloneNode(true);
+                    // Force inline before inserting
+                    clonedCite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important;';
                     citationSlot.appendChild(clonedCite);
                 }
             }
@@ -970,6 +1066,123 @@
         });
 
         createStars();
+
+        // Author names mapping for citations
+        const authorNames = {
+            'xie2024osworld': 'Xie et al.',
+            'rawles2024androidworld': 'Rawles et al.',
+            'kapoor2024omniact': 'Kapoor et al.',
+            'rawles2024androidinthewild': 'Rawles et al.',
+            'li2024effects': 'Li et al.',
+            'bonatti2024windows': 'Bonatti et al.',
+            'zhouwebarena': 'Zhou et al.',
+            'koh2024visualwebarena': 'Koh et al.',
+            'deng2024mind2web': 'Deng et al.',
+            'pan2024webcanvas': 'Pan et al.',
+            'pmlr-v70-shi17a': 'Shi et al.',
+            'liu2018reinforcement': 'Liu et al.',
+            'drouin2024workarena': 'Drouin et al.',
+            'boisvert2024workarena++': 'Boisvert et al.',
+            'nogueira2016end': 'Nogueira & Cho',
+            'zaheer2022learning': 'Zaheer et al.',
+            'nakano2021webgpt': 'Nakano et al.',
+            'liu2024visualwebbench': 'Liu et al.',
+            'pasupat-liang-2014-zero': 'Pasupat & Liang',
+            'liu2024harnessing': 'Liu et al.',
+            'jimenezswe': 'Jimenez et al.',
+            'swebenchverifiedblog': 'OpenAI',
+            'yang2024swe': 'Yang et al.',
+            'aleithan2024swe': 'Aleithan et al.',
+            'chen2024scienceagentbench': 'Chen et al.',
+            'yoran2407assistantbench': 'Yoran et al.',
+            'press2024citeme': 'Press et al.',
+            'mialon2023gaia': 'Mialon et al.'
+        };
+        const citeLinks = {
+            'pmlr-v70-shi17a': 'https://proceedings.mlr.press/v70/shi17a.html',
+            'pmlr-v162-humphreys22a': 'https://proceedings.mlr.press/v162/humphreys22a.html',
+            'nakano2021webgpt': 'https://arxiv.org/abs/2112.09332',
+            'pasupat-liang-2014-zero': 'https://aclanthology.org/P14-1037',
+            'nogueira2016end': 'https://arxiv.org/abs/1607.05673',
+            'zaheer2022learning': 'https://arxiv.org/abs/2206.15472',
+            'liu2018reinforcement': 'https://openreview.net/forum?id=Sk5qOMy0W'
+        };
+
+        // Style d-cite to display inline with author names
+        function styleCitations() {
+            const applyStyles = () => {
+                document.querySelectorAll('d-cite').forEach(cite => {
+                    const keys = (cite.getAttribute('key') || cite.getAttribute('data-cite-key') || '')
+                        .split(',')
+                        .map(k => k.trim())
+                        .filter(Boolean);
+                    const authorLabel = keys.map(k => authorNames[k] || k || 'Citation').join('; ') || 'Citation';
+                    
+                    // Force inline display on the element itself
+                    cite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important; position: relative !important;';
+                    
+                    const styleShadowDOM = () => {
+                        if (!cite.shadowRoot) {
+                            setTimeout(styleShadowDOM, 10);
+                            return;
+                        }
+
+                        // Inject style to force :host to be inline
+                        let hostStyle = cite.shadowRoot.querySelector('style[data-inline-host]');
+                        if (!hostStyle) {
+                            hostStyle = document.createElement('style');
+                            hostStyle.setAttribute('data-inline-host', '');
+                            hostStyle.textContent = ':host { display: inline !important; white-space: nowrap !important; }';
+                            cite.shadowRoot.insertBefore(hostStyle, cite.shadowRoot.firstChild);
+                        }
+                        
+                        const wrapper = cite.shadowRoot.querySelector('#citation-') || cite.shadowRoot.querySelector('.citation');
+                        if (wrapper) {
+                            wrapper.style.cssText = 'display: inline !important; margin: 0 !important; padding: 0 !important;';
+                        }
+
+                        const span = cite.shadowRoot.querySelector('.citation-number') || cite.shadowRoot.querySelector('span');
+                        if (span) {
+                            span.textContent = `(${authorLabel})`;
+                            span.style.cssText = 'display: inline !important; white-space: nowrap !important; color: #2698ba !important; cursor: pointer !important; text-decoration: underline !important; font-size: 1em !important; vertical-align: baseline !important; line-height: inherit !important;';
+
+                            const primaryKey = keys[0];
+                            const entry = (cite.entries && cite.entries[0]) || {};
+                            const arxivMatch = typeof entry.journal === 'string' ? entry.journal.match(/arXiv[:\s]*([0-9\.v]+)\b/i) : null;
+                            const href = citeLinks[primaryKey] || entry.url || entry.pdf || (arxivMatch ? `https://arxiv.org/abs/${arxivMatch[1]}` : null);
+                            if (href) {
+                                span.onclick = () => window.open(href, '_blank', 'noopener');
+                                span.setAttribute('role', 'link');
+                                span.setAttribute('aria-label', `${authorLabel} reference`);
+                            } else {
+                                span.onclick = null;
+                                span.removeAttribute('role');
+                                span.removeAttribute('aria-label');
+                            }
+                        }
+                    };
+
+                    // Override default displayNumbers so future updates stay author-based
+                    cite.displayNumbers = () => {
+                        styleShadowDOM();
+                    };
+                    
+                    styleShadowDOM();
+                });
+            };
+
+            customElements.whenDefined('d-cite').then(applyStyles);
+        }
+
+        // Run after a short delay to ensure d-cite elements are fully rendered
+        setTimeout(styleCitations, 500);
+        
+        // Style citations after showing dataset info (since they're dynamically created)
+        const originalShowDatasetInfo = showDatasetInfo;
+        showDatasetInfo = function(dataset, star) {
+            originalShowDatasetInfo(dataset, star);
+            setTimeout(styleCitations, 100);
+        };
     </script>
 </body>
 </html>

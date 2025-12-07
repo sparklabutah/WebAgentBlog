@@ -83,42 +83,33 @@
             line-height: 1.4;
             max-width: 90%;
             overflow: visible;
+            white-space: normal;
         }
         
-        /* Ensure d-cite tooltips have high z-index */
+        /* Force d-cite to be inline */
         d-cite {
-            position: relative;
-            z-index: 100;
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
         }
         
-        d-cite:hover {
-            z-index: 1000;
+        .paper-card-title d-cite {
+            display: inline !important;
+            white-space: nowrap !important;
+            vertical-align: baseline !important;
+            line-height: inherit !important;
         }
 
         .paper-card-image {
             width: 100%;
-            max-width: 320px;
-            height: 160px;
+            max-width: 360px;
+            height: 210px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .paper-card-url {
-            color: #2698ba;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            padding: 0.5rem 1rem;
-            border: 1px solid #2698ba;
-            border-radius: 4px;
-        }
-
-        .paper-card-url:hover {
-            background: #2698ba;
-            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
         }
 
         .carousel-nav {
@@ -198,8 +189,8 @@
             }
 
             .paper-card-image {
-                max-width: 260px;
-                height: 130px;
+                max-width: 280px;
+                height: 170px;
             }
 
             .carousel-nav {
@@ -265,27 +256,23 @@
         <div class="carousel-container">
             <div class="papers-track" id="papersTrack">
                 <div class="paper-card">
-                    <div class="paper-card-title">A Comprehensive Survey of Agents for Computer Use: Foundations, Challenges, and Future Directions</div> <d-cite key="sager2025comprehensive"></d-cite>
+                    <div class="paper-card-title">A Comprehensive Survey of Agents for Computer Use: Foundations, Challenges, and Future Directions <d-cite key="sager2025comprehensive"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/comprehensive.png" alt="Comprehensive Survey" onerror="this.style.display='none'">
-                    <a class="paper-card-url" href="https://arxiv.org/abs/2501.16150" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
                 
                 <div class="paper-card">
                     <div class="paper-card-title">A Survey on Large Language Model based Autonomous Agents <d-cite key="wang2024survey"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/llmagent.png" alt="LLM Agents Survey" onerror="this.style.display='none'">
-                    <a class="paper-card-url" href="https://arxiv.org/abs/2308.11432" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
 
                 <div class="paper-card">
                     <div class="paper-card-title">OS Agents: A Survey on MLLM-based Agents for Computer, Phone and Browser Use <d-cite key="hu2025agents"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/treeagents.png" alt="OS Agents Survey" onerror="this.style.display='none'">
-                    <a class="paper-card-url" href="https://os-agent-survey.github.io/paper.pdf" target="_blank" rel="noopener">View Paper PDF →</a>
                 </div>
 
                 <div class="paper-card">
                     <div class="paper-card-title">Survey on Evaluation of LLM-based Agents <d-cite key="yehudai2025survey"></d-cite></div>
                     <img class="paper-card-image" src="/webagentblog/assets/img/2026-04-27-web-agent/eval.png" alt="Evaluation Survey" onerror="this.style.display='none'">
-                    <a class="paper-card-url" href="https://arxiv.org/abs/2503.16416" target="_blank" rel="noopener">View on arXiv →</a>
                 </div>
             </div>
             
@@ -368,6 +355,87 @@
         });
 
         updateCarousel();
+
+        // Author names mapping for citations
+        const authorNames = {
+            'sager2025comprehensive': 'Sager et al.',
+            'wang2024survey': 'Wang et al.',
+            'hu2025agents': 'Hu et al.',
+            'yehudai2025survey': 'Yehudai et al.'
+        };
+        const citeLinks = {
+            'sager2025comprehensive': 'https://arxiv.org/abs/2501.16150',
+            'wang2024survey': 'https://arxiv.org/abs/2308.11432',
+            'hu2025agents': 'https://os-agent-survey.github.io/paper.pdf',
+            'yehudai2025survey': 'https://arxiv.org/abs/2503.16416'
+        };
+
+        // Style d-cite to display inline with author names
+        function styleCitations() {
+            const applyStyles = () => {
+                document.querySelectorAll('d-cite').forEach(cite => {
+                    const keys = (cite.getAttribute('key') || cite.getAttribute('data-cite-key') || '')
+                        .split(',')
+                        .map(k => k.trim())
+                        .filter(Boolean);
+                    const authorLabel = keys.map(k => authorNames[k] || k || 'Citation').join('; ') || 'Citation';
+                    
+                    // Force inline display on the element itself
+                    cite.style.cssText = 'display: inline !important; white-space: nowrap !important; vertical-align: baseline !important; line-height: inherit !important; position: relative !important;';
+                    
+                    const styleShadowDOM = () => {
+                        if (!cite.shadowRoot) {
+                            setTimeout(styleShadowDOM, 10);
+                            return;
+                        }
+
+                        // Inject style to force :host to be inline
+                        let hostStyle = cite.shadowRoot.querySelector('style[data-inline-host]');
+                        if (!hostStyle) {
+                            hostStyle = document.createElement('style');
+                            hostStyle.setAttribute('data-inline-host', '');
+                            hostStyle.textContent = ':host { display: inline !important; white-space: nowrap !important; }';
+                            cite.shadowRoot.insertBefore(hostStyle, cite.shadowRoot.firstChild);
+                        }
+                        
+                        const wrapper = cite.shadowRoot.querySelector('#citation-') || cite.shadowRoot.querySelector('.citation');
+                        if (wrapper) {
+                            wrapper.style.cssText = 'display: inline !important; margin: 0 !important; padding: 0 !important;';
+                        }
+
+                        const span = cite.shadowRoot.querySelector('.citation-number') || cite.shadowRoot.querySelector('span');
+                        if (span) {
+                            span.textContent = `(${authorLabel})`;
+                            span.style.cssText = 'display: inline !important; white-space: nowrap !important; color: #2698ba !important; cursor: pointer !important; text-decoration: underline !important; font-size: 1em !important; vertical-align: baseline !important; line-height: inherit !important;';
+
+                            const primaryKey = keys[0];
+                            const href = citeLinks[primaryKey];
+                            if (href) {
+                                span.onclick = () => window.open(href, '_blank', 'noopener');
+                                span.setAttribute('role', 'link');
+                                span.setAttribute('aria-label', `${authorLabel} reference`);
+                            } else {
+                                span.onclick = null;
+                                span.removeAttribute('role');
+                                span.removeAttribute('aria-label');
+                            }
+                        }
+                    };
+
+                    // Override default displayNumbers so future updates stay author-based
+                    cite.displayNumbers = () => {
+                        styleShadowDOM();
+                    };
+                    
+                    styleShadowDOM();
+                });
+            };
+
+            customElements.whenDefined('d-cite').then(applyStyles);
+        }
+
+        // Run after a short delay to ensure d-cite elements are fully rendered
+        setTimeout(styleCitations, 500);
     </script>
 </body>
 </html>
