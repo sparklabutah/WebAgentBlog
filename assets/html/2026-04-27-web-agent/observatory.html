@@ -484,7 +484,18 @@
         <d-cite key="xu-etal-2025-crab" data-cite-key="xu-etal-2025-crab"></d-cite>
         <d-cite key="song2025bearcubs" data-cite-key="song2025bearcubs"></d-cite>
         <d-cite key="yao2022webshop" data-cite-key="yao2022webshop"></d-cite>
-        <d-cite key="wei2025browsecomp" data-cite-key="wei2025browsecomp"></d-cite>        
+        <d-cite key="wei2025browsecomp" data-cite-key="wei2025browsecomp"></d-cite>  
+        <d-cite key="xue2025illusion" data-cite-key="wei2025browsecomp"></d-cite>  
+        <d-cite key="zharmagambetov2025agentdam" data-cite-key="zharmagambetov2025agentdam"></d-cite>  
+        <d-cite key="garg2025real" data-cite-key="garg2025real"></d-cite>  
+        <d-cite key="yang2025macosworld" data-cite-key="yang2025macosworld"></d-cite>  
+        <d-cite key="luo2025open" data-cite-key="luo2025open"></d-cite>  
+        <d-cite key="hong2025embodied" data-cite-key="hong2025embodied"></d-cite>  
+        <d-cite key="wang2025odysseybench" data-cite-key="wang2025odysseybench"></d-cite>  
+        <d-cite key="webchorearenawebchorearena" data-cite-key="webchorearenawebchorearena"></d-cite>  
+        <d-cite key="bragg2025astabench" data-cite-key="bragg2025astabench"></d-cite>  
+        <d-cite key="peeters2025webmall" data-cite-key="peeters2025webmall"></d-cite> 
+        
     </div>
 
     <script>
@@ -607,6 +618,19 @@
                 execution: "Yes", 
                 examples: "120", 
                 citeKey: "xu-etal-2025-crab"
+            },
+            { 
+                name: "macOSWorld", 
+                category: "Computer and OS Control", 
+                os: "macOS", 
+                interface: "GUI", 
+                observations: "Screenshots", 
+                actions: "Mouse + keyboard", 
+                web: "Live (minimal)", 
+                tasks: "OS tasks on 30 Unique Apps", 
+                execution: "Yes", 
+                examples: "202", 
+                citeKey: "yang2025macosworld"
             },
             
             // Web Control and Navigation
@@ -733,12 +757,77 @@
                 os: "N/A", 
                 interface: "Browser", 
                 observations: "Screenshot", 
-                actions: "Mouse/keyboard actions", 
+                actions: "Mouse + keyboard", 
                 web: "Live", 
                 tasks: "Text-based or multimodal interaction", 
                 execution: "Yes", 
                 examples: "111", 
                 citeKey: "song2025bearcubs"
+            },
+            { 
+                name: "Open CaptchaWorld", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshot", 
+                actions: "Mouse + keyboard", 
+                web: "Live", 
+                tasks: "20 types of CAPTCHAs", 
+                execution: "Yes", 
+                examples: "225 instances", 
+                citeKey: "luo2025open"
+            },
+            { 
+                name: "EMBODIED WEB AGENTS", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "First-person visual images / screenshots and accessibility trees / street-view images", 
+                actions: "Movement / Mouse + keyboard", 
+                web: "Live", 
+                tasks: "Navigation + Web", 
+                execution: "Yes", 
+                examples: "1,523", 
+                citeKey: "hong2025embodied"
+            },
+            { 
+                name: "REAL", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshots / Full DOM / Accessibility Tree", 
+                actions: "DOM / Various", 
+                web: "Static", 
+                tasks: "Web Navigation / Information Retrieval", 
+                execution: "Yes", 
+                examples: "112", 
+                citeKey: "garg2025real"
+            },
+            { 
+                name: "AGENTDAM", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshot / Accessibility Tree", 
+                actions: "12 actions: 6 element operations + 3 tab operations + 3 navigation operations + stop", 
+                web: "Static", 
+                tasks: "Task on various apps (Reddit (Postmill), E-commerce (Adobe Magento), GitLab) to evaluate privacy", 
+                execution: "Yes", 
+                examples: "246", 
+                citeKey: "zharmagambetov2025agentdam"
+            },
+            { 
+                name: "Online Mind2Web", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshots", 
+                actions: "Various", 
+                web: "Live", 
+                tasks: "Web Browsing", 
+                execution: "Yes", 
+                examples: "300", 
+                citeKey: "xue2025illusion"
             },
             
             
@@ -968,6 +1057,32 @@
                 execution: "Yes",
                 examples: "1,266", 
                 citeKey: "wei2025browsecomp"
+            },
+            { 
+                name: "OdysseyBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Task desscription,  dialogue histories, file system state (documents, emails, calendar events)",
+                actions: "Tool use calls to office apis", 
+                web: "N/A", 
+                tasks: "Tasks on 5 office applications", 
+                execution: "Yes", 
+                examples: "602", 
+                citeKey: "wang2025odysseybench"
+            },
+        	{
+                name: "ASTABENCH", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code, Text/API", 
+                observations: "Tasks, retrieved papers, datasets and metadata, code output, full paper text",
+                actions: "Search operations, Code execution, Submit", 
+                web: "Static", 
+                tasks: "Literature Understanding, Code & Execution, Data Analysis, End-to-End Discovery", 
+                execution: "Yes", 
+                examples: "2400+ problems", 
+                citeKey: "bragg2025astabench"
             }
         ];
 
