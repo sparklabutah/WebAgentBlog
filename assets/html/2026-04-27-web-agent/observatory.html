@@ -571,6 +571,25 @@
         <d-cite key="yoran2407assistantbench" data-cite-key="yoran2407assistantbench"></d-cite>
         <d-cite key="press2024citeme" data-cite-key="press2024citeme"></d-cite>
         <d-cite key="mialon2023gaia" data-cite-key="mialon2023gaia"></d-cite>
+        <d-cite key="li-etal-2025-legalagentbench" data-cite-key="li-etal-2025-legalagentbench"></d-cite>
+        <d-cite key="xu-etal-2025-androidlab" data-cite-key="xu-etal-2025-androidlab"></d-cite>
+        <d-cite key="li-etal-2025-investorbench" data-cite-key="li-etal-2025-investorbench"></d-cite>
+        <d-cite key="ahn-etal-2025-flashadventure" data-cite-key="ahn-etal-2025-flashadventure"></d-cite>
+        <d-cite key="xu-etal-2025-crab" data-cite-key="xu-etal-2025-crab"></d-cite>
+        <d-cite key="song2025bearcubs" data-cite-key="song2025bearcubs"></d-cite>
+        <d-cite key="yao2022webshop" data-cite-key="yao2022webshop"></d-cite>
+        <d-cite key="wei2025browsecomp" data-cite-key="wei2025browsecomp"></d-cite>  
+        <d-cite key="xue2025illusion" data-cite-key="wei2025browsecomp"></d-cite>  
+        <d-cite key="zharmagambetov2025agentdam" data-cite-key="zharmagambetov2025agentdam"></d-cite>  
+        <d-cite key="garg2025real" data-cite-key="garg2025real"></d-cite>  
+        <d-cite key="yang2025macosworld" data-cite-key="yang2025macosworld"></d-cite>  
+        <d-cite key="luo2025open" data-cite-key="luo2025open"></d-cite>  
+        <d-cite key="hong2025embodied" data-cite-key="hong2025embodied"></d-cite>  
+        <d-cite key="wang2025odysseybench" data-cite-key="wang2025odysseybench"></d-cite>  
+        <d-cite key="webchorearenawebchorearena" data-cite-key="webchorearenawebchorearena"></d-cite>  
+        <d-cite key="bragg2025astabench" data-cite-key="bragg2025astabench"></d-cite>  
+        <d-cite key="peeters2025webmall" data-cite-key="peeters2025webmall"></d-cite> 
+        
     </div>
 
     <script>
@@ -655,6 +674,59 @@
                 examples: "154", 
                 citeKey: "bonatti2024windows"
             },
+            { 
+                name: "AndroidLab", 
+                category: "Computer and OS Control", 
+                os: "Android", 
+                interface: "GUI", 
+                observations: "Text-only LLMs: a task description + interaction history + current compressed XML info; Multimodal LLMs: a task description + interaction history + current screenshot with a set of marks", 
+                actions: "4 basic phone operations: Tap, Swipe, Type, Long Press +  2 shortcut keys: Home and Back + Finish action", 
+                web: "None", 
+                tasks: "Bluecoins (15 tasks), Calendar (14 tasks), Cantook (12 tasks), Clock (27 tasks), Contacts (15 tasks), Maps.me (15 tasks), PiMusic (12 tasks), Setting (23 tasks), Zoom (5 tasks)", 
+                execution: "Yes", 
+                examples: "138", 
+                citeKey: "xu-etal-2025-androidlab"
+            },
+            { 
+                name: "FlashAdventure", 
+                category: "Computer and OS Control", 
+                os: "Mac/Windows", 
+                interface: "GUI", 
+                observations: "Screenshots", 
+                actions: "Mouse + keyboard", 
+                web: "N/A", 
+                tasks: "Classic Adventure Games", 
+                execution: "Yes", 
+                examples: "34 games (some with multiple intermediate milestones)", 
+                citeKey: "ahn-etal-2025-flashadventure"
+            },
+            { 
+                name: "CRAB", 
+                category: "Computer and OS Control", 
+                os: "Ubuntu and Android", 
+                interface: "GUI", 
+                observations: "Screenshots with Set-of-Mark", 
+                actions: "Distinct action spaces for Ubuntu and Android environments (e.g. click(elem), right_click(elem), tap(elem), etc)", 
+                web: "Live", 
+                tasks: "29 Android tasks, 73 Ubuntu tasks and 18 cross-platform tasks", 
+                execution: "Yes", 
+                examples: "120", 
+                citeKey: "xu-etal-2025-crab"
+            },
+            { 
+                name: "macOSWorld", 
+                category: "Computer and OS Control", 
+                os: "macOS", 
+                interface: "GUI", 
+                observations: "Screenshots", 
+                actions: "Mouse + keyboard", 
+                web: "Live (minimal)", 
+                tasks: "OS tasks on 30 Unique Apps", 
+                execution: "Yes", 
+                examples: "202", 
+                citeKey: "yang2025macosworld"
+            },
+            
             // Web Control and Navigation
             { 
                 name: "WebArena", 
@@ -735,6 +807,19 @@
                 citeKey: "liu2018reinforcement"
             },
             { 
+                name: "WebShop", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Simplied HTML and embedding images", 
+                actions: "2 action types (search and choose) with 8 specific action variants", 
+                web: "Static", 
+                tasks: "Simple Web shopping tasks", 
+                execution: "Yes", 
+                examples: "12,087", 
+                citeKey: "yao2022webshop"
+            },
+            { 
                 name: "WorkArena", 
                 category: "Web Control and Navigation", 
                 os: "N/A", 
@@ -760,6 +845,86 @@
                 examples: "N/A", 
                 citeKey: "boisvert2024workarena++"
             },
+            { 
+                name: "BearCubs", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshot", 
+                actions: "Mouse + keyboard", 
+                web: "Live", 
+                tasks: "Text-based or multimodal interaction", 
+                execution: "Yes", 
+                examples: "111", 
+                citeKey: "song2025bearcubs"
+            },
+            { 
+                name: "Open CaptchaWorld", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshot", 
+                actions: "Mouse + keyboard", 
+                web: "Live", 
+                tasks: "20 types of CAPTCHAs", 
+                execution: "Yes", 
+                examples: "225 instances", 
+                citeKey: "luo2025open"
+            },
+            { 
+                name: "EMBODIED WEB AGENTS", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "First-person visual images / screenshots and accessibility trees / street-view images", 
+                actions: "Movement / Mouse + keyboard", 
+                web: "Live", 
+                tasks: "Navigation + Web", 
+                execution: "Yes", 
+                examples: "1,523", 
+                citeKey: "hong2025embodied"
+            },
+            { 
+                name: "REAL", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshots / Full DOM / Accessibility Tree", 
+                actions: "DOM / Various", 
+                web: "Static", 
+                tasks: "Web Navigation / Information Retrieval", 
+                execution: "Yes", 
+                examples: "112", 
+                citeKey: "garg2025real"
+            },
+            { 
+                name: "AGENTDAM", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshot / Accessibility Tree", 
+                actions: "12 actions: 6 element operations + 3 tab operations + 3 navigation operations + stop", 
+                web: "Static", 
+                tasks: "Task on various apps (Reddit (Postmill), E-commerce (Adobe Magento), GitLab) to evaluate privacy", 
+                execution: "Yes", 
+                examples: "246", 
+                citeKey: "zharmagambetov2025agentdam"
+            },
+            { 
+                name: "Online Mind2Web", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Screenshots", 
+                actions: "Various", 
+                web: "Live", 
+                tasks: "Web Browsing", 
+                execution: "Yes", 
+                examples: "300", 
+                citeKey: "xue2025illusion"
+            },
+            
+            
             // Text-only Web Environments
             { 
                 name: "End-to-end Goal-driven Web Nav", 
@@ -800,6 +965,8 @@
                 examples: ">1M QA pairs", 
                 citeKey: "nakano2021webgpt"
             },
+            
+
             // Web QA and Classification
             { 
                 name: "VisualWebBench", 
@@ -840,6 +1007,7 @@
                 examples: "7.3M", 
                 citeKey: "liu2024harnessing"
             },
+            
             // Coding and Assistant Tasks
             { 
                 name: "SWE-BENCH", 
@@ -912,8 +1080,8 @@
                 os: "N/A", 
                 interface: "Text", 
                 observations: "Natural language instructions", 
-                actions: "Web navigation and tool use", 
-                web: "Live", 
+                actions: "Web navigation and tool use (optional)", 
+                web: "Live (optional)", 
                 tasks: "Realistic time-consuming tasks", 
                 execution: "Yes", 
                 examples: "214", 
@@ -944,6 +1112,71 @@
                 execution: "No, evaluated just on final answer", 
                 examples: "466 QA pairs", 
                 citeKey: "mialon2023gaia"
+            },
+            { 
+                name: "LegalAgentBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Text representations of execution results", 
+                actions: "Function name with parameters that will be executed on a legal corpus", 
+                web: "None", 
+                tasks: "-", 
+                execution: "Yes", 
+                examples: "300", 
+                citeKey: "li-etal-2025-legalagentbench"
+            },
+            { 
+                name: "InvestorBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text / LLM APIs", 
+                observations: "Current price + momentum + top-K retrieved text summaries",
+                actions: "3 actions: Buy, Sell, Hold", 
+                web: "None", 
+                tasks: "stock trading, cryptocurrency trading, ETF trading", 
+                execution: "Yes", 
+                examples: "N/A", 
+                citeKey: "li-etal-2025-legalagentbench"
+            },
+            { 
+                name: "BrowseComp", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Natural language instructions",
+                actions: "Web navigation and tool use (optional)", 
+                web: "Live (optional)", 
+                tasks: "TV shows & movies (16.2%), Other (15.6%), Science & technology (13.7%), Art (10.0%), History (9.9%), Sports (9.7%), Music (9.2%), Video games (5.6%), Geography (5.5%), Politics (4.7%)", 
+                execution: "Yes",
+                examples: "1,266", 
+                citeKey: "wei2025browsecomp"
+            },
+            { 
+                name: "OdysseyBench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code", 
+                observations: "Task desscription,  dialogue histories, file system state (documents, emails, calendar events)",
+                actions: "Tool use calls to office apis", 
+                web: "N/A", 
+                tasks: "Tasks on 5 office applications", 
+                execution: "Yes", 
+                examples: "602", 
+                citeKey: "wang2025odysseybench"
+            },
+        	{
+                name: "ASTABENCH", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Code, Text/API", 
+                observations: "Tasks, retrieved papers, datasets and metadata, code output, full paper text",
+                actions: "Search operations, Code execution, Submit", 
+                web: "Static", 
+                tasks: "Literature Understanding, Code & Execution, Data Analysis, End-to-End Discovery", 
+                execution: "Yes", 
+                examples: "2400+ problems", 
+                citeKey: "bragg2025astabench"
             }
         ];
 
