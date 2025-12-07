@@ -589,7 +589,13 @@
         <d-cite key="webchorearenawebchorearena" data-cite-key="webchorearenawebchorearena"></d-cite>  
         <d-cite key="bragg2025astabench" data-cite-key="bragg2025astabench"></d-cite>  
         <d-cite key="peeters2025webmall" data-cite-key="peeters2025webmall"></d-cite> 
-        
+        <d-cite key="li2025mm" data-cite-key="li2025mm"></d-cite> 
+        <d-cite key="gou2025mind2web" data-cite-key="gou2025mind2web"></d-cite> 
+        <d-cite key="luomcp" data-cite-key="luomcp"></d-cite> 
+        <d-cite key="jang2025scalable" data-cite-key="jang2025scalable"></d-cite> 
+        <d-cite key="wuwebwalker" data-cite-key="wuwebwalker"></d-cite> 
+        <d-cite key="yin-etal-2025-mmau" data-cite-key="yin-etal-2025-mmau"></d-cite> 
+        <d-cite key="xiao-etal-2025-csr" data-cite-key="xiao-etal-2025-csr"></d-cite> 
     </div>
 
     <script>
@@ -725,6 +731,19 @@
                 execution: "Yes", 
                 examples: "202", 
                 citeKey: "yang2025macosworld"
+            },
+            { 
+                name: "MONDAY", 
+                category: "Computer and OS Control", 
+                os: "iOS/Android", 
+                interface: "GUI", 
+                observations: "Screenshots", 
+                actions: "Touch, Scroll, Hardware interactions, Typing, Long press, Multi touch, four-finger pinch, double tap, rotate, zoom", 
+                web: "N/A", 
+                tasks: "Everyday smartphone tasks", 
+                execution: "No", 
+                examples: "313K annotated frames", 
+                citeKey: "jang2025scalable"
             },
             
             // Web Control and Navigation
@@ -923,6 +942,45 @@
                 examples: "300", 
                 citeKey: "xue2025illusion"
             },
+            { 
+                name: "WebChoreArena", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Accessibility tree / Screenshots", 
+                actions: "Various (including BrowserGym action space)", 
+                web: "Static", 
+                tasks: "massive_memory: 206, calc: 215, long-term: 247, others: 47", 
+                execution: "Yes", 
+                examples: "532", 
+                citeKey: "webchorearenawebchorearena"
+            },
+            { 
+                name: "WebMall", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser", 
+                observations: "Accessibility tree / Screenshots", 
+                actions: "Set from AgentLab (e.g go to page, click, fill text, scroll)", 
+                web: "Static",
+                tasks: "Web shopping tasks", 
+                execution: "Yes", 
+                examples: "91", 
+                citeKey: "peeters2025webmall"
+            },
+            { 
+                name: "Mind2Web 2", 
+                category: "Web Control and Navigation", 
+                os: "N/A", 
+                interface: "Browser (required for search agents)", 
+                observations: "Not standardized (commercial systems vary)", 
+                actions: "Not standardized (commercial systems vary)", 
+                web: "Live",
+                tasks: "Lifestyle & Leisure: 26% (34 tasks), Entertainment: 22% (28 tasks), Science & Research: 18% (23 tasks), Miscellaneous: 19% (25 tasks), Career & Education: 8% (11 tasks), Travel & Transportation: 7% (9 tasks)", 
+                execution: "No", 
+                examples: "130", 
+                citeKey: "gou2025mind2web"
+            },
             
             
             // Text-only Web Environments
@@ -965,8 +1023,20 @@
                 examples: ">1M QA pairs", 
                 citeKey: "nakano2021webgpt"
             },
+            { 
+                name: "WebWalker", 
+                category: "Text-only Web Environments", 
+                os: "N/A", 
+                interface: "Text", 
+                observations: "Markdown content of web pages + clickable HTML buttons with URLs", 
+                actions: "Click (selecting a URL/sublink to explore)", 
+                web: "Live", 
+                tasks: "Tasks on real-world official websites across 4 domains (conference, organization, education, game)", 
+                execution: "Yes", 
+                examples: "680 QA pairs", 
+                citeKey: "wuwebwalker"
+            },
             
-
             // Web QA and Classification
             { 
                 name: "VisualWebBench", 
@@ -1153,6 +1223,19 @@
                 citeKey: "wei2025browsecomp"
             },
             { 
+                name: "MM-BrowseComp", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text, Visual, Browser", 
+                observations: "Natural language questions (some with images), web search results, webpage content",
+                actions: "Web search, reverse image search, web browsing/page visiting, image/video/PDF analysis", 
+                web: "Live", 
+                tasks: "Media (29%), Technology (26%), Society (18%), Geography (13%), Academics (14%)", 
+                execution: "Yes",
+                examples: "224", 
+                citeKey: "li2025mm"
+            },
+            { 
                 name: "OdysseyBench", 
                 category: "Coding and Assistant Tasks", 
                 os: "N/A", 
@@ -1166,7 +1249,7 @@
                 citeKey: "wang2025odysseybench"
             },
         	{
-                name: "ASTABENCH", 
+                name: "AstaBench", 
                 category: "Coding and Assistant Tasks", 
                 os: "N/A", 
                 interface: "Code, Text/API", 
@@ -1177,6 +1260,45 @@
                 execution: "Yes", 
                 examples: "2400+ problems", 
                 citeKey: "bragg2025astabench"
+            },
+            {
+                name: "MCP-Universe", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "MCP Protocol", 
+                observations: "Tool/MCP server responses (JSON-formatted results)",
+                actions: "Tool calls to MCP servers with JSON parameters", 
+                web: "Live", 
+                tasks: "Location Navigation: 45 (19.5%), Web Searching: 55 (23.8%), Browser Automation: 39 (16.9%), 3D Designing: 19 (8.2%), Financial Analysis: 40 (17.3%), Repo. Management: 33 (14.3%)", 
+                execution: "Yes", 
+                examples: "231", 
+                citeKey: "luomcp"
+            },
+            {
+                name: "MMAU", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "Text, Code", 
+                observations: "Natural language prompts, tool/function definitions (JSON), code execution outputs (text/images), test cases, error messages for self-correction",
+                actions: "Function/tool calls (name + arguments), multiple-choice selection, Python code generation, math solution generation, plan generation", 
+                web: "N/A", 
+                tasks: "Tool-use (single/multi/DAG QA/self-correct), CodeContest (algorithms, data structures), DS&ML (textual QA, code gen, visual QA), Math (56 subjects including calculus, geometry, statistics)", 
+                execution: "Yes", 
+                examples: "3,220 prompts", 
+                citeKey: "yin-etal-2025-mmau"
+            },
+            {
+                name: "CSR-Bench", 
+                category: "Coding and Assistant Tasks", 
+                os: "N/A", 
+                interface: "CLI, Text", 
+                observations: "README files, directory structure, standard output, standard error, execution logs, GitHub issues database",
+                actions: "Bash command generation and execution", 
+                web: "N/A", 
+                tasks: "CS Experiment tasks on 100 GitHub code repositories", 
+                execution: "Yes", 
+                examples: "100 repositories", 
+                citeKey: "xiao-etal-2025-csr"
             }
         ];
 
