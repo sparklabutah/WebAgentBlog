@@ -580,7 +580,7 @@
         <d-cite key="song2025bearcubs" data-cite-key="song2025bearcubs"></d-cite>
         <d-cite key="yao2022webshop" data-cite-key="yao2022webshop"></d-cite>
         <d-cite key="wei2025browsecomp" data-cite-key="wei2025browsecomp"></d-cite>  
-        <d-cite key="xue2025illusion" data-cite-key="wei2025browsecomp"></d-cite>  
+        <d-cite key="xue2025illusion" data-cite-key="xue2025illusion"></d-cite>  
         <d-cite key="zharmagambetov2025agentdam" data-cite-key="zharmagambetov2025agentdam"></d-cite>  
         <d-cite key="garg2025real" data-cite-key="garg2025real"></d-cite>  
         <d-cite key="yang2025macosworld" data-cite-key="yang2025macosworld"></d-cite>  
@@ -1527,17 +1527,66 @@
             'mialon2023gaia': 'Mialon et al.'
         };
         const citeLinks = {
-            'pmlr-v70-shi17a': 'https://proceedings.mlr.press/v70/shi17a.html',
-            'pmlr-v162-humphreys22a': 'https://proceedings.mlr.press/v162/humphreys22a.html',
-            'nakano2021webgpt': 'https://arxiv.org/abs/2112.09332',
-            'pasupat-liang-2014-zero': 'https://aclanthology.org/P14-1037',
-            'nogueira2016end': 'https://arxiv.org/abs/1607.05673',
-            'zaheer2022learning': 'https://arxiv.org/abs/2206.15472',
-            'liu2018reinforcement': 'https://openreview.net/forum?id=Sk5qOMy0W',
-            'swebenchverifiedblog': 'https://openai.com/index/introducing-swe-bench-verified/',
-            'jimenezswe':'https://arxiv.org/abs/2310.06770'
-        };
-
+    'pmlr-v70-shi17a': 'https://proceedings.mlr.press/v70/shi17a.html',
+    'pmlr-v162-humphreys22a': 'https://proceedings.mlr.press/v162/humphreys22a.html',
+    'nakano2021webgpt': 'https://arxiv.org/abs/2112.09332',
+    'pasupat-liang-2014-zero': 'https://aclanthology.org/P14-1037',
+    'nogueira2016end': 'https://arxiv.org/abs/1602.02261',
+    'zaheer2022learning': 'https://arxiv.org/abs/2211.00177',
+    'liu2018reinforcement': 'https://arxiv.org/abs/1802.08802',
+    'swebenchverifiedblog': 'https://openai.com/index/introducing-swe-bench-verified/',
+    'jimenezswe': 'https://arxiv.org/abs/2310.06770',
+    'deng2024mind2web': 'https://arxiv.org/abs/2306.06070',
+    'hong2025embodied': 'https://arxiv.org/abs/2506.15677',
+    'huang-etal-2025-crmarena': 'https://aclanthology.org/2025.naacl-long.194/',
+    'jang2025scalable': 'https://arxiv.org/abs/2505.12632',
+    'koh2024visualwebarena': 'https://aclanthology.org/2024.acl-long.50/',
+    'luo2025open': 'https://arxiv.org/abs/2505.24878',
+    'luomcp': 'https://arxiv.org/abs/2508.14704',
+    'rawles2024androidinthewild': 'https://arxiv.org/abs/2307.10088',
+    'rawles2024androidworld': 'https://arxiv.org/abs/2405.14573',
+    'song2025bearcubs': 'https://arxiv.org/abs/2503.07919',
+    'webchorearenawebchorearena': 'https://arxiv.org/abs/2506.01952',
+    'wuwebwalker': 'https://arxiv.org/abs/2501.07572',
+    'xue2025illusion': 'https://arxiv.org/abs/2504.01382',
+    'yao2022webshop': 'https://proceedings.neurips.cc/paper_files/paper/2022/hash/82ad13ec01f9fe44c01cb91814fd7b8c-Abstract-Conference.html',
+    'yoran2407assistantbench': 'https://arxiv.org/abs/2407.15711',
+    'zhouwebarena': 'https://arxiv.org/abs/2307.13854',
+    'xie2024osworld': 'https://arxiv.org/abs/2404.07972',
+    'kapoor2024omniact': 'https://arxiv.org/abs/2402.17553',
+    'bonatti2024windows': 'https://arxiv.org/abs/2409.08264',
+    'li2024effects': 'https://arxiv.org/abs/2406.03679',
+    'pan2024webcanvas': 'https://arxiv.org/abs/2406.12373',
+    'drouin2024workarena': 'https://arxiv.org/abs/2403.07718',
+    'boisvert2024workarena': 'https://arxiv.org/abs/2407.05291',
+    'liu2024visualwebbench': 'https://arxiv.org/abs/2404.05955',
+    'liu2024harnessing': 'https://arxiv.org/abs/2410.13824',
+    'chen2024scienceagentbench': 'https://arxiv.org/abs/2410.05080',
+    'press2024citeme': 'https://arxiv.org/abs/2407.12861',
+    'mialon2023gaia': 'https://arxiv.org/abs/2311.12983',
+    'xu-etal-2025-androidlab': 'https://aclanthology.org/2025.acl-long.107/',
+    'li-etal-2025-legalagentbench': 'https://aclanthology.org/2025.acl-long.116/',
+    'li-etal-2025-investorbench': 'https://aclanthology.org/2025.acl-long.126/',
+    'ahn-etal-2025-flashadventure': 'https://aclanthology.org/2025.emnlp-main.1192/',
+    'xu-etal-2025-crab': 'https://aclanthology.org/2025.findings-acl.1113/',
+    'yang2025macosworld': 'https://arxiv.org/abs/2506.04135',
+    'hong2025embodied': 'https://arxiv.org/abs/2506.15677',
+    'garg2025real': 'https://arxiv.org/abs/2504.11543',
+    'wang2025odysseybench': 'https://arxiv.org/abs/2508.09124',
+    'bragg2025astabench': 'https://arxiv.org/abs/2510.21652',
+    'li2025mm': 'https://arxiv.org/abs/2508.13186',
+    'gou2025mind2web': 'https://arxiv.org/abs/2506.21506',
+    'yin-etal-2025-mmau': 'https://aclanthology.org/2025.findings-naacl.267/',
+    'xiao-etal-2025-csr': 'https://aclanthology.org/2025.naacl-long.633/',
+    'huang-etal-2025-crmarena': 'https://aclanthology.org/2025.naacl-long.194/',
+    'wang-etal-2025-fedmabench': 'https://aclanthology.org/2025.emnlp-main.1341/',
+    'hu-etal-2025-repro': 'https://aclanthology.org/2025.findings-acl.1210/',
+    'wang-etal-2025-x': 'https://aclanthology.org/2025.acl-long.421/',
+    'xu-etal-2025-turkingbench': 'https://aclanthology.org/2025.naacl-long.188/',
+    'zharmagambetov2025agentdam': 'https://arxiv.org/abs/2503.09780',
+    'peeters2025webmall': 'https://arxiv.org/abs/2508.13024',
+    'wei2025browsecomp': 'https://arxiv.org/abs/2504.12516'
+};
         // Style a single d-cite element
         function styleSingleCitation(cite) {
             const keys = (cite.getAttribute('key') || cite.getAttribute('data-cite-key') || '')
